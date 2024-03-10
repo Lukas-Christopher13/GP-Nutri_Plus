@@ -1,0 +1,9 @@
+#folds
+
+.venv/
+.git/
+__pycache__/
+
+#files
+
+.gitignore
