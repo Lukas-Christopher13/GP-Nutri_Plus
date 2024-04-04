@@ -17,4 +17,7 @@ def create_app(config_name: str):
     from .controllers.home import home as home_bluesprint
     app.register_blueprint(home_bluesprint)
 
+    from .controllers.auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
+
     return app

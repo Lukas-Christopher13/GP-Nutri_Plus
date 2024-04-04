@@ -1,0 +1,25 @@
+{% extends 'auth/index.html' %}
+
+{% block title %} Nutri Plus: register {% endblock %}
+
+{% block content %}
+    <h1>teste do register</h1>
+
+    <form method="post">
+        {{ form.email.label }} {{ form.email }}
+        {{ form.full_name.label }} {{ form.full_name }}
+        {{ form.birt_date.label }} {{ form.birt_date }}
+        {{ form.cpf.lable }} {{ form.cpf }}
+        {{ form.country.label }} {{ form.country }}
+        {{ form.state.label }} {{ form.state }}
+        {{ form.city.label }} {{ form.city}}
+        {{ form.password.label }} {{ form.password }}
+        {{ form.confirm_password.label }} {{ form.confirm_password }}
+
+        <input type="submit" name="registrar" id="">
+    </form>
+
+    <a href="/register-nutricionista">registrar nutricionista</a>
+    
+
+{% endblock %}
