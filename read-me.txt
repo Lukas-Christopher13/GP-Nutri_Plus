@@ -1,3 +1,1 @@
 Para rodar o programa digite em seu terminal o comando
-
--> "sudo docker-compose up"
