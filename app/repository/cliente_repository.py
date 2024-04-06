@@ -1,5 +1,3 @@
-from sqlalchemy.exc import IntegrityError
-
 from ..ext.db import db
 from ..models.cliente_model import Cliente
 from ..forms.auth.register_form import ClientRegisterForm
