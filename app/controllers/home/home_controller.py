@@ -1,6 +1,6 @@
-from flask import render_template
-
 from . import home
+
+from flask import render_template
 
 @home.route("/")
 def home():

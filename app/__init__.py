@@ -4,6 +4,7 @@ from config import config
 
 from .ext.db import db
 from .ext.bootstrap5 import bootstrap
+from .ext.flask_login import login_manager
 
 
 app = Flask(__name__)
@@ -13,6 +14,7 @@ def create_app(config_name: str):
 
     db.init_app(app)
     bootstrap.init_app(app)
+    login_manager.init_app(app)
 
     from .controllers.home import home as home_bluesprint
     app.register_blueprint(home_bluesprint)

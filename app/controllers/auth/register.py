@@ -2,6 +2,8 @@ from . import auth
 
 from flask import render_template, redirect, url_for, request
 
+from flask_login import login_required
+
 from sqlalchemy.exc import IntegrityError
 
 from ...utils.register_utils import compare_passwords
@@ -14,6 +16,7 @@ clienteRepository = ClienteRepository()
 nutricionistaRepository = NutricionistaRepository()
 
 @auth.route("/register", methods=["GET", "POST"])
+@login_required
 def register():
     form = ClientRegisterForm(request.form)
 
@@ -32,8 +35,9 @@ def register():
     return render_template("auth/register.html", form=form)
 
 @auth.route("/register-nutricionista", methods=["GET", "POST"])
+@login_required
 def register_nutricionista():
-    form = NutricionistaRegisterForm()
+    form = NutricionistaRegisterForm(request.form)
 
     is_valid = form.validate()
     is_post = request.method == "POST"
@@ -46,6 +50,5 @@ def register_nutricionista():
         #terminar a questão da integridade do banco!
         except IntegrityError as e:
             print(e)
-
 
     return render_template("auth/nutricionista_register.html", form=form)

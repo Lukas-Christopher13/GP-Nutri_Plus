@@ -1,5 +1,5 @@
 class Config:
-    pass
+    SECRET_KEY = "segredo"
 
 class DevelopConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///project.db"

@@ -2,9 +2,16 @@ from sqlalchemy import Column, Integer, String, Date
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from ..ext.db import db
+from flask_login import UserMixin
 
-class Nutricionista(db.Model):
+from ..ext.db import db
+from ..ext.flask_login import login_manager
+
+@login_manager.user_loader
+def get_user(user_id):
+    return Nutricionista.query.filter_by(id=user_id).first()
+
+class Nutricionista(db.Model, UserMixin):
     __tablename__ = "nutricionista"
 
     id = Column(Integer, primary_key=True)
