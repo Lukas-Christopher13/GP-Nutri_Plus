@@ -2,10 +2,11 @@ from . import auth
 
 from flask import render_template, redirect, url_for, request
 
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from sqlalchemy.exc import IntegrityError
 
+from ...models.cliente_model import Cliente
 from ...utils.register_utils import compare_passwords
 from ...repository.cliente_repository import ClienteRepository
 from ...repository.nutricionista_repository import NutricionistaRepository
@@ -26,7 +27,21 @@ def register():
 
     if is_valid and is_post and is_the_same_password:
         try:
-            clienteRepository.create_cliente(form)
+            nutricionista = current_user
+
+            cliente = Cliente(
+                email=form.email.data,
+                full_name=form.full_name.data,
+                birt_date=form.birt_date.data,
+                cpf=form.cpf.data,
+                country=form.country.data,
+                state=form.state.data,
+                city=form.city.data,
+                nutricionista=nutricionista
+            )
+            cliente.set_password(form.password.data)
+
+            clienteRepository.create_cliente(cliente)
             return redirect("/")
         #terminar a questão da integridade do banco!
         except IntegrityError as e:

@@ -21,6 +21,8 @@ class Nutricionista(db.Model, UserMixin):
     cnpj = Column(String(length=11))
     password_hash = Column(String(length=256))
 
+    clientes = db.relationship("Cliente", backref="nutricionista", lazy=True)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
