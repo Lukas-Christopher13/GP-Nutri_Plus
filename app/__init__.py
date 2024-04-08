@@ -17,4 +17,9 @@ def create_app(config_name: str):
     from .controllers.home import home as home_bluesprint
     app.register_blueprint(home_bluesprint)
 
+    from .controllers.diet import diet as diet_bluesprint
+    app.register_blueprint(diet_bluesprint)
+
     return app
+
+

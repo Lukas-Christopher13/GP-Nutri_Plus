@@ -1,4 +1,3 @@
-# app.py
 
 from flask import Flask
 from app.ext.db import db
@@ -11,8 +10,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
 app.config['SECRET_KEY'] = 'mysecretkey'
 db.init_app(app)
 
-# Registrar blueprints
 app.register_blueprint(diet_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+

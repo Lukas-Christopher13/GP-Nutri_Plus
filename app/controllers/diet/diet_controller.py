@@ -1,8 +1,8 @@
-# controllers/diet_controller.py
-
 from flask import Blueprint, render_template, redirect, url_for
-from app.forms.forms import DietForm, FoodForm
-from app.models.models import Diet, Food, db
+#from app.forms.forms import DietForm, FoodForm
+from ...forms.forms import DietForm, FoodForm
+#from app.models.models import Diet, Food, db
+from ...models.models import Diet, Food, db
 
 diet_bp = Blueprint('diet', __name__, url_prefix='/diet')
 
@@ -27,10 +27,10 @@ def new_diet():
 
         return redirect(url_for('diet.view_diet', diet_id=diet.id))
 
-    return render_template('form_diet.html', diet_form=diet_form, food_form=food_form)
+    return render_template('diet/form_diet.html', diet_form=diet_form, food_form=food_form)
 
 @diet_bp.route('/<int:diet_id>')
 def view_diet(diet_id):
     diet = Diet.query.get_or_404(diet_id)
     foods = Food.query.filter_by(diet_id=diet_id).all()
-    return render_template('view_diet.html', diet=diet, foods=foods)
+    return render_template('diet/view_diet.html', diet=diet, foods=foods)

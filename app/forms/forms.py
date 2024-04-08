@@ -1,4 +1,3 @@
-# forms/forms.py
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, IntegerField, FloatField
@@ -13,3 +12,4 @@ class DietForm(FlaskForm):
 class FoodForm(FlaskForm):
     name = StringField('Food Name', validators=[DataRequired()])
     quantity = FloatField('Quantity (grams)', validators=[DataRequired()])
+
