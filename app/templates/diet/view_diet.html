@@ -1,7 +1,5 @@
-{% extends "base.html" %}
 
-{% block content %}
-  <h2>Diet: {{ diet.name }}</h2>
+<h2>Diet: {{ diet.name }}</h2>
   <p>Objective: {{ diet.objective }}</p>
   <p>Restrictions: {{ diet.restrictions }}</p>
   <p>Duration: {{ diet.duration }} days</p>
@@ -12,4 +10,3 @@
       <li>{{ food.name }} - {{ food.quantity }} grams</li>
     {% endfor %}
   </ul>
-{% endblock %}
