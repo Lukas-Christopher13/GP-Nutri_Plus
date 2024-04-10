@@ -3,7 +3,7 @@ from ..models.nuticionista_model import Nutricionista
 from ..forms.auth.register_form import NutricionistaRegisterForm
 
 class NutricionistaRepository:
-     def create_cliente(self, form: NutricionistaRegisterForm):
+    def create_cliente(self, form: NutricionistaRegisterForm):
         nutricionista = Nutricionista(
             email = form.email.data,
             full_name = form.full_name.data,

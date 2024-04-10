@@ -50,7 +50,7 @@ def register():
     return render_template("auth/register.html", form=form)
 
 @auth.route("/register-nutricionista", methods=["GET", "POST"])
-@login_required
+#@login_required
 def register_nutricionista():
     form = NutricionistaRegisterForm(request.form)
 
@@ -65,5 +65,6 @@ def register_nutricionista():
         #terminar a questão da integridade do banco!
         except IntegrityError as e:
             print(e)
+            var = e
 
     return render_template("auth/nutricionista_register.html", form=form)
