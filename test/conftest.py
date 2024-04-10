@@ -6,6 +6,8 @@ from app.ext.db import db
 def app():
     app = create_app("test")
     
+    with app.app_context():
+        db.create_all()
     # other setup can go here
 
     yield app

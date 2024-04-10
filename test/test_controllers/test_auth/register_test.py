@@ -16,7 +16,6 @@ def test_register_nutricionista(client, app):
     response = client.post("/register-nutricionista", data=VALID_USER)
 
     with app.app_context():
-        db.create_all()
         nutricionista: Nutricionista = Nutricionista.query.filter_by(email=VALID_USER["email"]).first()
     
     assert nutricionista.email == VALID_USER["email"]

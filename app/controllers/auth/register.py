@@ -65,6 +65,5 @@ def register_nutricionista():
         #terminar a questão da integridade do banco!
         except IntegrityError as e:
             print(e)
-            var = e
 
     return render_template("auth/nutricionista_register.html", form=form)
