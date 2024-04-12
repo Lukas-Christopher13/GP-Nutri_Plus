@@ -1,7 +1,5 @@
+from ..ext.db import db
 
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
 
 class Diet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
