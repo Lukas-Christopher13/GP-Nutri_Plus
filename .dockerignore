@@ -3,8 +3,10 @@
 .venv/
 .git/
 __pycache__/
+.pytest_cache/
 
 #files
 
 .gitignore
 a_faseres.txt
+.coverage

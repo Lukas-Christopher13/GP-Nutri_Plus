@@ -17,7 +17,7 @@ clienteRepository = ClienteRepository()
 nutricionistaRepository = NutricionistaRepository()
 
 @auth.route("/register", methods=["GET", "POST"])
-@login_required
+#@login_required
 def register():
     form = ClientRegisterForm(request.form)
 

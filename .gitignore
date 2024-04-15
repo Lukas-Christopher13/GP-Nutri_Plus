@@ -2,6 +2,8 @@
 .venv/
 __pycache__/
 instance/
+.pytest_cache/
 
 #files
 a_faseres.txt
+.coverage
