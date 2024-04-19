@@ -3,6 +3,7 @@
 __pycache__/
 instance/
 .pytest_cache/
+.vscode/
 
 #files
 a_faseres.txt

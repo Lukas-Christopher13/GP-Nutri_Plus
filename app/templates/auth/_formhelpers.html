@@ -6,7 +6,7 @@
   {% if field.errors %}
     <ul class="form-text text-muted">
     {% for error in field.errors %}
-      <li>{{ error }}</li>
+      <li class="alert alert-danger" role="alert">{{ error }}</li>
     {% endfor %}
     </ul>
   {% endif %}

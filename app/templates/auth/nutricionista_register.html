@@ -6,6 +6,12 @@
 {% block content %}
     <h1 class="d-flex justify-content-center align-items-center">Registrar Nutricionista</h1>
 
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+
     <div class="d-flex justify-content-center align-items-center">
         <form class="" method="post">
             {{ render_field(form.email) }}
