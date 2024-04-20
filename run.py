@@ -1,6 +1,7 @@
 from app import create_app
 from app.ext.db import db
 from app.models import *
+from app.controllers import *
 
 app = create_app("develop")
 
