@@ -7,6 +7,7 @@ from .ext.jwt_extended import jwt
 from .ext.bootstrap5 import bootstrap
 from .ext.flask_login import login_manager
 
+from app.controllers.diet.diet_controller import diet_bp
 
 app = Flask(__name__)
 
@@ -16,14 +17,17 @@ def create_app(config_name: str):
     db.init_app(app)
     jwt.init_app(app)
     bootstrap.init_app(app)
+    login_manager.init_app(app)
     
-
     from .controllers.home import home as home_bluesprint
     app.register_blueprint(home_bluesprint)
 
     from .controllers.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
-    login_manager.init_app(app)
+    from .controllers.diet import diet as diet_bluesprint
+    app.register_blueprint(diet_bp)
 
     return app
+
+
