@@ -1,10 +1,8 @@
 from . import auth
 
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, request
 
 from flask_login import login_required, current_user
-
-from sqlalchemy.exc import IntegrityError
 
 from ...models.nuticionista_model import Nutricionista
 from ...models.cliente_model import Cliente
@@ -17,40 +15,40 @@ from ...services.auth.errors import EmailAlreadyRegistredError
 from ...services.auth.register_service import NutricionistaRegisterService
 
 
-clienteRepository = ClienteRepository()
-
 @auth.route("/register", methods=["GET", "POST"])
-#@login_required
+@login_required
 def register():
     form = ClientRegisterForm(request.form)
+    clienteRepository = ClienteRepository()
 
-    is_valid = form.validate()
-    is_post = request.method == "POST"
-    is_the_same_password = compare_passwords(form.password.data, form.confirm_password.data)
+    if not (request.method == "POST" and form.validate()):
+        return render_template("auth/register.html", form=form)
+    
+    if form.password.data != form.confirm_password.data:
+        message = "Passwords diferentes!"
+        return render_template("auth/register.html", form=form, message=message)
+    
+    if clienteRepository.email_already_exists(form.email.data):
+        message = "Esse email já foi cadastrado"
+        return render_template("auth/register.html", form=form, message=message)
 
-    if is_valid and is_post and is_the_same_password:
-        try:
-            nutricionista = current_user
+    nutricionista = current_user
 
-            cliente = Cliente(
-                email=form.email.data,
-                full_name=form.full_name.data,
-                birt_date=form.birt_date.data,
-                cpf=form.cpf.data,
-                country=form.country.data,
-                state=form.state.data,
-                city=form.city.data,
-                nutricionista=nutricionista
-            )
-            cliente.set_password(form.password.data)
+    cliente = Cliente(
+        email=form.email.data,
+        full_name=form.full_name.data,
+        birt_date=form.birt_date.data,
+        cpf=form.cpf.data,
+        country=form.country.data,
+        state=form.state.data,
+        city=form.city.data,
+        nutricionista=nutricionista
+    )
+    cliente.set_password(form.password.data)
 
-            clienteRepository.create_cliente(cliente)
-            return redirect("/")
-        #terminar a questão da integridade do banco!
-        except IntegrityError as e:
-            print(e)
-            
-    return render_template("auth/register.html", form=form)
+    clienteRepository.insert(cliente)
+    return redirect("/")
+   
 
 @auth.route("/register-nutricionista", methods=["GET", "POST"])
 #@login_required

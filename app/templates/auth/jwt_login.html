@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+<script>
+    sessionStorage.setItem('jwt', '{{ jwt }}');
+
+    async function makeRequestWithJWT() {
+        const options = {
+          method: 'get',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          }
+        };
+        const response = await fetch('{{ rota }}', options);
+    }
+</script>

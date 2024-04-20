@@ -40,3 +40,19 @@ def nutricionista_mocked():
     nutricionista.password = "teste123"
 
     return nutricionista
+
+@pytest.fixture()
+def cliente_mocked():
+    cliente = MagicMock()
+
+    cliente.id = 1 
+    cliente.email = "test@gmail.com"
+    cliente.full_name = "nutricionista test"
+    cliente.birt_date = datetime.date.today()
+    cliente.cpf = "12345678901"
+    cliente.contry = "Brazil" 
+    cliente.state = "Paraíba"
+    cliente.city = "Campina Grande"
+    cliente.password_hash = "akfjsadlkjflaçlsdjfl30820"
+
+    return cliente
