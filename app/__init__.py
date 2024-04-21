@@ -8,7 +8,6 @@ from .ext.flask_login import login_manager
 from app.controllers.diet.diet_controller import diet_bp
 
 
-
 app = Flask(__name__)
 
 def create_app(config_name: str):
@@ -26,6 +25,9 @@ def create_app(config_name: str):
 
     from .controllers.diet import diet as diet_bluesprint
     app.register_blueprint(diet_bp)
+
+    from .controllers.exam import exam as exam_bluesprint
+    app.register_blueprint(exam_bluesprint)
 
     return app
 
