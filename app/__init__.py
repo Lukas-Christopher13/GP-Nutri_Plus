@@ -6,7 +6,6 @@ from .ext.db import db
 from .ext.bootstrap5 import bootstrap
 from .ext.flask_login import login_manager
 
-
 app = Flask(__name__)
 
 def create_app(config_name: str):
