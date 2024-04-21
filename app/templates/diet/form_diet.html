@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Diet</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Create New Diet</h2>
+    <form method="POST" action="">
+        {{ diet_form.hidden_tag() }}
+        {{ food_form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ diet_form.name.label }}
+            {{ diet_form.name(class="form-control", placeholder="Enter diet name") }}
+        </div>
+
+        <div class="form-group">
+            {{ diet_form.objective.label }}
+            {{ diet_form.objective(class="form-control", rows=3, placeholder="Enter diet objective") }}
+        </div>
+
+        <div class="form-group">
+            {{ diet_form.restrictions.label }}
+            {{ diet_form.restrictions(class="form-control", rows=3, placeholder="Enter diet restrictions") }}
+        </div>
+
+        <div class="form-group">
+            {{ diet_form.duration.label }}
+            {{ diet_form.duration(class="form-control", placeholder="Enter duration in days") }}
+        </div>
+
+        <hr>
+        <h3>Add Food to Diet</h3>
+
+        <div class="form-group">
+            {{ food_form.name.label }}
+            {{ food_form.name(class="form-control", placeholder="Enter food name") }}
+        </div>
+
+        <div class="form-group">
+            {{ food_form.quantity.label }}
+            {{ food_form.quantity(class="form-control", placeholder="Enter quantity in grams") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Diet</button>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

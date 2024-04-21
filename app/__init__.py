@@ -5,6 +5,9 @@ from config import config
 from .ext.db import db
 from .ext.bootstrap5 import bootstrap
 from .ext.flask_login import login_manager
+from app.controllers.diet.diet_controller import diet_bp
+
+
 
 app = Flask(__name__)
 
@@ -21,4 +24,9 @@ def create_app(config_name: str):
     from .controllers.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    from .controllers.diet import diet as diet_bluesprint
+    app.register_blueprint(diet_bp)
+
     return app
+
+
