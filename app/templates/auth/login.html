@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% from "auth/_formhelpers.html" import render_field %}
+
+{% block title %} Nutri Plus: login {% endblock %}
+
+
+{% block content %}
+    <form method="post">
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+
+        <div class="d-flex gap-*">
+            <button type="submit" class="btn btn-success">logar</button>
+            <button type="button" class="btn btn-light">Voltar</button>
+        </div>
+
+    </form>
+{% endblock %}
+

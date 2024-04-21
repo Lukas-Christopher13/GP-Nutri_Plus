@@ -1,0 +1,14 @@
+
+{% macro render_field(field) %}
+  
+  <dt>{{ field.label(class_="form-label", for_="validationCustom01") }}
+  <dd>{{ field(class_="form-control", id_="validationCustom01") }}
+  {% if field.errors %}
+    <ul class="form-text text-muted">
+    {% for error in field.errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}

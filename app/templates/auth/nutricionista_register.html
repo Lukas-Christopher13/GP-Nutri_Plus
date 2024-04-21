@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% from "auth/_formhelpers.html" import render_field %}
+
+{% block title %} Nutri Plus: register {% endblock %}
+
+{% block content %}
+    <h1 class="d-flex justify-content-center align-items-center">Registrar Nutricionista</h1>
+
+    <div class="d-flex justify-content-center align-items-center">
+        <form class="" method="post">
+            {{ render_field(form.email) }}
+            {{ render_field(form.full_name) }}
+            {{ render_field(form.birt_date) }}
+            {{ render_field(form.cnpj) }}
+            {{ render_field(form.password) }}
+            {{ render_field(form.confirm_password) }}
+            
+            <div class="d-flex gap-*">
+                <button type="submit" class="btn btn-success">Eviar</button>
+                <button type="button" class="btn btn-light">Voltar</button>
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}
