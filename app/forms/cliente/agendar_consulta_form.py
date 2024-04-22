@@ -1,4 +1,4 @@
-from wtforms import Form, DateField, SelectMultipleField
+from wtforms import Form, DateField, SelectMultipleField, StringField
 from wtforms.validators import DataRequired
 
 #adicionar Campo motivo

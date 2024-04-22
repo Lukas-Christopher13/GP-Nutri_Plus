@@ -24,9 +24,9 @@ class Cliente(db.Model, UserMixin):
     city = Column(String(length=30))
     password_hash = Column(String(length=256))
 
-    nutricionista_id = Column(Integer, ForeignKey("nutricionista.id"), nullable= False)
+    consulta = db.relationship("Consulta", backref="cliente", lazy=True)
 
-    consultas = db.relationship("Consulta", backref="cliente", lazy=True)
+    nutricionista_id = Column(Integer, ForeignKey("nutricionista.id"), nullable= False)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

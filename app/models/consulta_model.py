@@ -7,8 +7,8 @@ from ..ext.flask_login import login_manager
 class Consulta(db.Model):
     __tablename__ = "consulta"
 
-    data = Column(Date, primary_key=True)
+    date = Column(Date, primary_key=True)
     time = Column(String, primary_key=True)
-    status = Column(String, nullable=False)
+    status = Column(String(32), nullable=False)
 
     cliente_id = Column(Integer, ForeignKey("cliente.id"), nullable=False)
