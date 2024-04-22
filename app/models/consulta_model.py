@@ -12,3 +12,6 @@ class Consulta(db.Model):
     status = Column(String(32), nullable=False)
 
     cliente_id = Column(Integer, ForeignKey("cliente.id"), nullable=False)
+
+    def cliente_info(self):
+        return f"{self.time} | {self.status} | HORÁRIO AGENDADO!"
