@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-{% from "auth/_formhelpers.html" import render_field %}
+{% from "utils/_formhelpers.html" import render_field %}
 
 {% block title %} Nutri Plus: login {% endblock %}
 
 {% block content %}
     <h1>Bem vindo cliente</h1>
+
+    <a href="/cliente/agendar_consulta">agendar consulta</a>
 {% endblock %}

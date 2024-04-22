@@ -3,7 +3,7 @@ from sqlalchemy import Column, Date, String, Integer, ForeignKey
 from ..ext.db import db
 from ..ext.flask_login import login_manager
 
-
+#adiconar campo motivo
 class Consulta(db.Model):
     __tablename__ = "consulta"
 

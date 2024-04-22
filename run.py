@@ -10,8 +10,6 @@ from app.models.nuticionista_model import Nutricionista
 from app.controllers import *
 
 app = create_app("develop")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
-app.config['SECRET_KEY'] = 'mysecretkey'
 
 with app.app_context():
     db.create_all()

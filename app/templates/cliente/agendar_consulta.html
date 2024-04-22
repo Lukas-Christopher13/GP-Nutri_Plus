@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% from "utils/_formhelpers.html" import render_field %}
+
+{% block content %}
+
+    <h1>Agendar Consulta</h1>
+
+    <form method="post">
+        {{ render_field(form.date) }}
+        {{ render_field(form.time) }}
+
+        <button type="submit" class="btn btn-success">Eviar</button>
+    </form>
+
+{% endblock %}

@@ -29,6 +29,9 @@ def create_app(config_name: str):
     from .controllers.exam import exam as exam_bluesprint
     app.register_blueprint(exam_bluesprint)
 
+    from .controllers.cliente import cliente as cliente_blueprint
+    app.register_blueprint(cliente_blueprint, url_prefix="/cliente")
+
     return app
 
 
