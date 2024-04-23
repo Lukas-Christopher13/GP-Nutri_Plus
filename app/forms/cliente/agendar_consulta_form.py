@@ -1,4 +1,4 @@
-from wtforms import Form, DateField, SelectMultipleField, StringField
+from wtforms import Form, DateField, SelectMultipleField, StringField, IntegerField
 from wtforms.validators import DataRequired
 
 #adicionar Campo motivo
@@ -11,4 +11,9 @@ class AgendarConsultaForm(Form):
     #validator para excluir sabado e domingo
     date = DateField("Data da Consulta", [DataRequired()])
     time = SelectMultipleField("Horário da Consutla", choices=choices, validators=[DataRequired()])
+
+class FilterAgendarConsultaForm(Form):
+    date = DateField("Data")
+    register_number = IntegerField("Quantidade de datas")
+
 

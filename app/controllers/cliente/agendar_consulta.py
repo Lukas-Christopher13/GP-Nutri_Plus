@@ -6,28 +6,30 @@ from flask_login import login_required, current_user
 from ...models.consulta_model import Consulta
 from ...repository.consulta_repository import ConsultaRepository
 from ...services.agendar_consulta_service import CalendarConsulta
-from ...forms.cliente.agendar_consulta_form import AgendarConsultaForm
+from ...forms.cliente.agendar_consulta_form import AgendarConsultaForm, FilterAgendarConsultaForm
 
 
 CALENDAR_NUM_DAYS = 5
+
 
 @cliente.route("/agendar_consulta", methods=["GET", "POST"])
 @login_required
 def agendar_consulta():
     form = AgendarConsultaForm(request.form)
+    filter_form = FilterAgendarConsultaForm(request.form)
+
     consultaRepository = ConsultaRepository()
-
     calendars = CalendarConsulta.get_calendar(CALENDAR_NUM_DAYS, consultaRepository)
-
+    
     if not (request.method == "POST" and form.validate()):
-        return render_template("cliente/agendar_consulta.html", form=form, calendars=calendars)
+        return render_template("cliente/agendar_consulta.html", form=form, filter_form=filter_form, calendars=calendars)
     
     date = form.date.data
     time = form.time.data[0]
     
     if consultaRepository.time_already_scheduled(date, time):
         message = "Outro cliente já agendou uma consulta para esse horário"
-        return render_template("cliente/agendar_consulta.html", form=form, calendars=calendars, message=message)
+        return render_template("cliente/agendar_consulta.html", form=form, filter_form=filter_form, calendars=calendars, message=message)
 
     consulta = Consulta(
         date=form.date.data,
@@ -39,4 +41,8 @@ def agendar_consulta():
     consultaRepository.insert(consulta)
 
     return redirect(url_for("cliente.agendar_consulta"))
-    
+
+@cliente.route("/get_calendar_data", methods=["POST"])
+@login_required
+def get_calendar_data():
+    pass
