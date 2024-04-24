@@ -19,7 +19,7 @@ def agendar_consulta():
     action = request.args.get("type")
 
     if action == "next":
-        consulta_service.get_next(10)
+        consulta_service.get_next(5)
 
     calendars = consulta_service.calendar_list
 

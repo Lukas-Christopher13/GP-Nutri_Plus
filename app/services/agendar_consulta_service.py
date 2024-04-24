@@ -31,8 +31,8 @@ class ConsultaService:
         calendar_list: List[CalendarConsulta] = []
 
         for day in range(1, days + 1):
-            self.today = self.today + timedelta(days + day)
-            date = self.today.strftime("%Y-%m-%d")
+            date = self.today + timedelta(day)
+            date = date.strftime("%Y-%m-%d")
 
             calendar = CalendarConsulta(self.consulta_repository, date)
 
