@@ -4,9 +4,15 @@ from wtforms.validators import DataRequired
 #adicionar Campo motivo
 class AgendarConsultaForm(Form):
     choices=[
-        ('opcao1', 'Opção 1'),
-        ('opcao2', 'Opção 2'),
-        ('opcao3', 'Opção 3')
+        ('7:00', '7:00'),
+        ('8:00', '8:00'),
+        ('9:00', '9:00'),
+        ('10:00', '10:00'),
+        ('11:00', '11:00'),
+        ('13:00', '13:00'),
+        ('14:00', '14:00'),
+        ('15:00', '15:00'),
+        ('16:00', '16:00'),
     ]
     #validator para excluir sabado e domingo
     date = DateField("Data da Consulta", [DataRequired()])

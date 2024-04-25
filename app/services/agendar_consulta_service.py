@@ -5,7 +5,7 @@ from ..models.consulta_model import Consulta
 from ..repository.consulta_repository import ConsultaRepository
 
 
-DATE_NUM = 5
+DATE_NUM = 15
 
 class ConsultaService:
     days = DATE_NUM
@@ -39,7 +39,6 @@ class ConsultaService:
             calendar_list.append(calendar)
         
         self.calendar_list = calendar_list
-        
 
     def get_calendar(self) -> List:
         calendar_list: List[CalendarConsulta] = []
