@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% from "utils/_formhelpers.html" import render_field %}
 
+
+
 {% block title %} Nutri Plus: register {% endblock %}
 
 {% block content %}
@@ -17,7 +19,7 @@
             
             <div class="d-flex gap-*">
                 <button type="submit" class="btn btn-success">Eviar</button>
-                <button type="button" class="btn btn-light">Voltar</button>
+                <button type="button" class="btn btn-light" onclick="window.history.back();">Voltar</button>
             </div>
 
         </form>

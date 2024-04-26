@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% from "utils/_formhelpers.html" import render_field %}
 
+
 {% block title %} Nutri Plus: login {% endblock %}
 
-{% block content %}
-    <h1>Bem vindo nutricionista</h1>
+{% with logout_url="/logout" %}
+    {% include "utils/_logout_navbar.html" %}
+{% endwith %}
 
-    <a href="/register">registro</a>
-    <a href="nutricionista/calendario">calendario</a>
-    <a href="/logout">logout</a>
+{% block content %}
+    <h1>Bem vindo nutricionista {{ name }}</h1>
+
+    <div class="container mt-5">
+        <div class="row">
+          <div class="col text-center">
+            <div class="d-flex flex-column align-items-center">
+              <a href="nutricionista/calendario" class="btn btn-secondary mb-3">Visualizar Calendario</a>
+              <a href="/register" class="btn btn-secondary">Cadastrar Cliente</a>
+            </div>
+          </div>
+        </div>
+    </div>
 
 {% endblock %}

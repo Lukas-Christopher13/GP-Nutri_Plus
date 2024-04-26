@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% from "utils/_formhelpers.html" import render_field %}
 
+{% with logout_url="/logout" %}
+    {% include "utils/_logout_navbar.html" %}
+{% endwith %}
+
 {% block content %}
     <h1>Calendário de Consultas</h1>
     
@@ -27,5 +31,6 @@
         {% endfor %}
     </div>
 
-      
+    <button type="button" class="btn btn-light" onclick="window.history.back()">Voltar</button>
+
 {% endblock %}

@@ -4,6 +4,10 @@
 {% block title %} Nutri Plus: register {% endblock %}
 
 {% block content %}
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+
     <h1 class="d-flex justify-content-center align-items-center">Registrar Cliente</h1>
 
     <div class="d-flex justify-content-center align-items-center">
@@ -20,7 +24,7 @@
             
             <div class="d-flex gap-*">
                 <button type="submit" class="btn btn-success">Eviar</button>
-                <button type="button" class="btn btn-light">Voltar</button>
+                <button type="button" class="btn btn-light" onclick="window.history.back()">Voltar</button>
 
                 <a href="/register-nutricionista" class="btn btn-dark">Cadastrar Nutricionista</a>
             </div>

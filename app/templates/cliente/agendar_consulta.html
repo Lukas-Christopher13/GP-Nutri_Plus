@@ -2,6 +2,10 @@
 {% from "utils/_formhelpers.html" import render_field %}
 
 {% block content %}
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+
     <h1>Calendário</h1>
     
     <div class="accordion" id="accordionExample">
@@ -42,5 +46,7 @@
 
         <button type="submit" class="btn btn-success">Eviar</button>
     </form>
+
+    <button type="button" class="btn btn-light" onclick="window.history.back()">Voltar</button>
 
 {% endblock %}

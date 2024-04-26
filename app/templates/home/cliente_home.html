@@ -4,7 +4,20 @@
 {% block title %} Nutri Plus: login {% endblock %}
 
 {% block content %}
-    <h1>Bem vindo cliente</h1>
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+    <h1>Bem vindo {{ name }}</h1>
 
-    <a href="/cliente/agendar_consulta">agendar consulta</a>
+    <div class="container mt-5">
+        <div class="row">
+          <div class="col text-center">
+            <div class="d-flex flex-column align-items-center">
+              <a href="/cliente/agendar_consulta" class="btn btn-success">Agendar Consulta</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
 {% endblock %}
