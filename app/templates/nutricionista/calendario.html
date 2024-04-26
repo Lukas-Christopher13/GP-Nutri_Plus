@@ -16,7 +16,7 @@
                     <div class="accordion-body">
                         {% if calendar.consulta_list %}
                             {% for consulta in calendar.consulta_list %}
-                                <p>{{ consulta.cliente_info() }}</p> 
+                                <p>{{ consulta.nutricionista_info() }}</p> 
                             {% endfor %}
                         {% else %}
                             <p>Todos os horários estão livres!</p>
