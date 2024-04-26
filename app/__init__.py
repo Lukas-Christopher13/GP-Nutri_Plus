@@ -32,6 +32,9 @@ def create_app(config_name: str):
     from .controllers.cliente import cliente as cliente_blueprint
     app.register_blueprint(cliente_blueprint, url_prefix="/cliente")
 
+    from .controllers.nutricionista import nutricionista as nutricionista_blueprint
+    app.register_blueprint(nutricionista_blueprint, url_prefix="/nutricionista")
+
     return app
 
 

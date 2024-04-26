@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% from "utils/_formhelpers.html" import render_field %}
+
+{% block content %}
+    <h1>Calendário de Consultas</h1>
+    
+    <div class="accordion" id="accordionExample">
+        {% for calendar in calendars %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ calendar.date }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ calendar.date }}" aria-expanded="false" aria-controls="collapse{{ calendar.date }}">
+                        Data: {{ calendar.get_date() }}
+                    </button>
+                </h2>
+                <div id="collapse{{ calendar.date }}" class="accordion-collapse collapse" aria-labelledby="heading{{ calendar.date }}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {% if calendar.consulta_list %}
+                            {% for consulta in calendar.consulta_list %}
+                                <p>{{ consulta.cliente_info() }}</p> 
+                            {% endfor %}
+                        {% else %}
+                            <p>Todos os horários estão livres!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+      
+{% endblock %}
