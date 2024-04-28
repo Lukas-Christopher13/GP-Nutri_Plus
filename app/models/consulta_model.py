@@ -13,6 +13,7 @@ class Consulta(db.Model):
     date = Column(Date, primary_key=True)
     time = Column(String, primary_key=True)
     status = Column(String(32), nullable=False)
+    motivo = Column(String(255))
 
     cliente_id = Column(Integer, ForeignKey("cliente.id"), nullable=False)
 
