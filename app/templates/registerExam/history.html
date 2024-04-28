@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Exames</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Histórico de Exames</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Paciente</th>
+                    <th>Resultado</th>
+                    <th>Data de Envio</th>
+                    <th>Arquivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exam in exams %}
+                    <tr>
+                        <td>{{ exam.id }}</td>
+                        <td>{{ exam.nome_paciente }}</td>
+                        <td>{{ exam.resultado }}</td>
+                        <td>{{ exam.data_envio.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                        <td><a href="{{ url_for('exam.download_file', filename=exam.arquivo) }}">Baixar</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

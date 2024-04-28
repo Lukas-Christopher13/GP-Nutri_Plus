@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app, send_from_directory
 from ...models.models import Exam, db
 from . import exam
 
@@ -38,3 +38,14 @@ def sendExam():
             return redirect(request.url)
 
     return render_template('registerExam/exam.html')
+
+
+@exam.route('/history')
+def exam_history():
+    exams = Exam.query.all()
+    return render_template('registerExam/history.html', exams=exams)
+
+@exam.route('/download/<filename>')
+def download_file(filename):
+    uploads_dir = os.path.join(current_app.root_path, 'uploads')
+    return send_from_directory(directory=uploads_dir, filename=filename, as_attachment=True)
