@@ -21,7 +21,7 @@ Ative o ambiente virtual:
 Instale os requerimentos:
     - pip install -r requirements.txt
 
-##Emails para teste:
+## Emails para teste:
 
 user nutricionista: nutri@gmail.com
 user cliente: cliente@gmail.com
