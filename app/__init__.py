@@ -29,6 +29,9 @@ def create_app(config_name: str):
     from .controllers.exam import exam as exam_bluesprint
     app.register_blueprint(exam_bluesprint)
 
+    from .controllers.activity import activity as activity_blueprint
+    app.register_blueprint(activity_blueprint)
+
     return app
 
 
