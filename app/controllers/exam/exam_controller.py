@@ -32,7 +32,7 @@ def sendExam():
             db.session.commit()
 
             flash('Exame enviado com sucesso para análise!', 'success')
-            return redirect(url_for('main.index'))
+            return redirect(url_for('home.cliente_home_page'))
         else:
             flash('Por favor, envie um arquivo PDF!', 'danger')
             return redirect(request.url)
