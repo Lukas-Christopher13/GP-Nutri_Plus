@@ -14,7 +14,6 @@ def register_activity():
         intensidade = form.intensidade.data
         data_atividade = form.data_atividade.data
         
-        # Salvar os dados da atividade no banco de dados
         activity = Activity(nome_atividade=nome_atividade, duracao=duracao, intensidade=intensidade, data_atividade=data_atividade)
         db.session.add(activity)
         db.session.commit()
