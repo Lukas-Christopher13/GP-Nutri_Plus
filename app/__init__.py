@@ -35,6 +35,9 @@ def create_app(config_name: str):
     from .controllers.nutricionista import nutricionista as nutricionista_blueprint
     app.register_blueprint(nutricionista_blueprint, url_prefix="/nutricionista")
 
+    from .controllers.activity import activity as activity_blueprint
+    app.register_blueprint(activity_blueprint)
+
     return app
 
 

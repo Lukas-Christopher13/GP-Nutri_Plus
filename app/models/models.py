@@ -27,3 +27,13 @@ class Exam(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+
+class Activity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome_atividade = db.Column(db.String(100), nullable=False)
+    duracao = db.Column(db.Integer, nullable=False)
+    intensidade = db.Column(db.String(100), nullable=False)
+    data_atividade = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"Activity(nome_atividade={self.nome_atividade}, duracao={self.duracao}, intensidade={self.intensidade}, data_atividade={self.data_atividade})"
