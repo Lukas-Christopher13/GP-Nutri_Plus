@@ -21,6 +21,11 @@
                         {% if calendar.consulta_list %}
                             {% for consulta in calendar.consulta_list %}
                                 <p>{{ consulta.cliente_info() }}</p> 
+                                {% if consulta.status == 'Agendado' %}
+                                    <form method="get" action="{{ url_for('cliente.cancelar_consulta', consulta_id=consulta.id) }}">
+                                        <button type="submit" class="btn btn-danger">Cancelar</button>
+                                    </form>
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <p>Todos os horários estão livres!</p>
@@ -44,7 +49,7 @@
         {{ render_field(form.date) }}
         {{ render_field(form.time) }}
 
-        <button type="submit" class="btn btn-success">Eviar</button>
+        <button type="submit" class="btn btn-success">Enviar</button>
     </form>
 
     <button type="button" class="btn btn-light" onclick="window.history.back()">Voltar</button>
