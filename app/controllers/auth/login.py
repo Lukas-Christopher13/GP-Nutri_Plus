@@ -18,13 +18,26 @@ def login():
         cliente: Cliente = Cliente.query.filter_by(email=form.email.data).first()
         nutricionista: Nutricionista = Nutricionista.query.filter_by(email=form.email.data).first()
 
-        if nutricionista is not None and nutricionista.check_password(form.password.data):
+        if cliente is not None:
+    
+            if cliente.is_blocked():
+                message = "Essa conta foi bloqueada temporariamente por excesso de tentativas de login!"
+                return render_template("/auth/login.html", form=form, message=message)
+            
+            if cliente.check_password(form.password.data):
+                cliente.update_login_attempts()
+                login_user(cliente)
+                return redirect(url_for("home.cliente_home_page"))
+            
+            cliente.increase_login_attempts()
+
+        if nutricionista is not None:
+            if not nutricionista.check_password(form.password.data):
+                pass
+                
             login_user(nutricionista)
             return redirect(url_for("home.nutricionista_home_page"))
-        
-        if cliente is not None and cliente.check_password(form.password.data):
-            login_user(cliente)
-            return redirect(url_for("home.cliente_home_page"))
+      
 
         return redirect("/login")
 

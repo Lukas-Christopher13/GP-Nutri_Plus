@@ -43,8 +43,9 @@ class Cliente(db.Model, UserMixin):
     def increase_login_attempts(self):
         if self.login_attempts >= 3:
             self.block_user()
-        
-        self.login_attempts+= 1
+        else:
+            self.login_attempts+= 1
+            db.session.commit()
 
     def block_user(self):
         time_now = datetime.now()
@@ -56,3 +57,8 @@ class Cliente(db.Model, UserMixin):
         if self.block_duration > datetime.now():
             return True
         return False
+    
+    def update_login_attempts(self):
+        self.login_attempts = 0
+        self.block_duration = datetime.now()
+        db.session.commit()
