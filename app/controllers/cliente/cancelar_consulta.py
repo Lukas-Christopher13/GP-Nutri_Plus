@@ -17,22 +17,25 @@ from flask_login import login_required, current_user
 from ...models.consulta_model import Consulta
 from ...repository.consulta_repository import ConsultaRepository
 
-@cliente.route("/cancelar_consulta/<int:consulta_id>", methods=["GET"])
+@cliente.route("/cancelar_consulta/<consulta_date>/<consulta_time>", methods=["GET"])
 @login_required
-def cancelar_consulta(consulta_id):
+def cancelar_consulta(consulta_date, consulta_time):
     consultaRepository = ConsultaRepository()
-    consulta = consultaRepository.get_by_id(consulta_id)
+    consultas = consultaRepository.get_all_by_date(consulta_date)
 
-    if not consulta or consulta.cliente_id != current_user.id:
+    consulta_a_cancelar = None
+    for consulta in consultas:
+        if consulta.time == consulta_time:
+            consulta_a_cancelar = consulta
+            break
+
+    if not consulta_a_cancelar or consulta_a_cancelar.cliente_id != current_user.id:
         flash("Consulta não encontrada ou não autorizada", "error")
         return redirect(url_for("cliente.agendar_consulta"))
 
-    if consulta.status == "Cancelado":
-        flash("Esta consulta já foi cancelada", "info")
-        return redirect(url_for("cliente.agendar_consulta"))
-
-    consulta.status = "Cancelado"
-    consultaRepository.update(consulta)
+    consulta_a_cancelar.status = "Cancelado"  
+    consultaRepository.update(consulta_a_cancelar)
 
     flash("Consulta cancelada com sucesso!", "success")
     return redirect(url_for("cliente.agendar_consulta"))
+

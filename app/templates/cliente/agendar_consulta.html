@@ -22,7 +22,7 @@
                             {% for consulta in calendar.consulta_list %}
                                 <p>{{ consulta.cliente_info() }}</p> 
                                 {% if consulta.status == 'Agendado' %}
-                                    <form method="get" action="{{ url_for('cliente.cancelar_consulta', consulta_id=consulta.id) }}">
+                                    <form method="get" action="{{ url_for('cliente.cancelar_consulta', consulta_date=consulta.date, consulta_time=consulta.time) }}">
                                         <button type="submit" class="btn btn-danger">Cancelar</button>
                                     </form>
                                 {% endif %}
