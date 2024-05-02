@@ -21,7 +21,7 @@ class Exam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome_paciente = db.Column(db.String(100), nullable=False)
     resultado = db.Column(db.Text, nullable=False)
-    arquivo = db.Column(db.String(255), nullable=False)  # Nome do arquivo PDF
+    arquivo = db.Column(db.String(255), nullable=False)
     data_envio = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save(self):

@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for
-#from app.forms.forms import DietForm, FoodForm
+from flask import Blueprint, render_template, redirect, url_for, session, flash
+from sqlalchemy.exc import IntegrityError
 from ...forms.forms import DietForm, FoodForm
-#from app.models.models import Diet, Food, db
 from ...models.models import Diet, Food, db
 
 diet_bp = Blueprint('diet', __name__, url_prefix='/diet')
@@ -11,21 +10,38 @@ def new_diet():
     diet_form = DietForm()
     food_form = FoodForm()
 
+    if 'diet_data' in session:
+        diet_form = DietForm(data=session['diet_data'])
+        food_form = FoodForm(data=session['food_data'])
+
     if diet_form.validate_on_submit() and food_form.validate_on_submit():
-        diet = Diet(name=diet_form.name.data,
-                    objective=diet_form.objective.data,
-                    restrictions=diet_form.restrictions.data,
-                    duration=diet_form.duration.data)
-        db.session.add(diet)
-        db.session.commit()
+        try:
+            diet = Diet(name=diet_form.name.data,
+                        objective=diet_form.objective.data,
+                        restrictions=diet_form.restrictions.data,
+                        duration=diet_form.duration.data)
+            db.session.add(diet)
+            db.session.commit()
 
-        food = Food(name=food_form.name.data,
-                    quantity=food_form.quantity.data,
-                    diet_id=diet.id)
-        db.session.add(food)
-        db.session.commit()
+            
+            for food_data in food_form.food_entries.data:
+                food = Food(name=food_data['name'],
+                            quantity=food_data['quantity'],
+                            diet_id=diet.id)
+                db.session.add(food)
 
-        return redirect(url_for('diet.view_diet', diet_id=diet.id))
+            db.session.commit()
+
+            session.pop('diet_data', None)
+            session.pop('food_data', None)
+
+            return redirect(url_for('diet.view_diet', diet_id=diet.id))
+
+        except IntegrityError:
+            db.session.rollback()
+            session['diet_data'] = diet_form.data
+            session['food_data'] = food_form.data
+            flash("Erro ao salvar dieta e alimentos.", "error")
 
     return render_template('diet/form_diet.html', diet_form=diet_form, food_form=food_form)
 

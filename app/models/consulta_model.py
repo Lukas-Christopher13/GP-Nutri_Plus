@@ -6,7 +6,6 @@ from ..ext.flask_login import login_manager
 from ..models.cliente_model import Cliente
 from ..repository.cliente_repository import ClienteRepository
 
-#adiconar campo motivo
 class Consulta(db.Model):
     __tablename__ = "consulta"
 

@@ -17,3 +17,6 @@ class ConsultaRepository:
     
     def get_all_by_date(self, date_):
         return Consulta.query.filter_by(date=date_).all()
+    
+    def update(self, consulta: Consulta):
+        db.session.commit()
