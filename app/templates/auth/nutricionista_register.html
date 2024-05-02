@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% from "utils/_formhelpers.html" import render_field %}
 
-
-
 {% block title %} Nutri Plus: register {% endblock %}
 
 {% block content %}
+
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+
     <h1 class="d-flex justify-content-center align-items-center">Registrar Nutricionista</h1>
 
     <div class="d-flex justify-content-center align-items-center">
