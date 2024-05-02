@@ -32,13 +32,18 @@ def login():
             cliente.increase_login_attempts()
 
         if nutricionista is not None:
-            if not nutricionista.check_password(form.password.data):
-                pass
-                
-            login_user(nutricionista)
-            return redirect(url_for("home.nutricionista_home_page"))
-      
 
+            if nutricionista.is_blocked():
+                message = "Essa conta foi bloqueada temporariamente por excesso de tentativas de login!"
+                return render_template("/auth/login.html", form=form, message=message)
+            
+            if nutricionista.check_password(form.password.data):
+                nutricionista.update_login_attempts()
+                login_user(nutricionista)
+                return redirect(url_for("home.nutricionista_home_page"))
+            
+            nutricionista.increase_login_attempts()
+      
         return redirect("/login")
 
     return render_template("/auth/login.html", form=form)
