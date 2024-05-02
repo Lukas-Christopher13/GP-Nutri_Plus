@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutri Plus</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <h1>Bem vindo ao Nutri Plus</h1>
 
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    
-</body>
-</html>
+{% with login_url="/login" %}
+    {% include "utils/_logout_navbar.html" %}
+{% endwith %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h1>Bem Vindo ao Nutri Plus!</h1>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
