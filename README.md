@@ -1,3 +1,5 @@
+# As branchs a serem analisadas sao a sprint_1 e sprint_2
+
 # Guia de Configuração do Ambiente Virtual Python (venv)
 
 Este guia mostra como configurar e utilizar um ambiente virtual do Python utilizando `venv`. Ambientes virtuais são úteis para isolar dependências de projetos Python, evitando conflitos entre diferentes projetos.
