@@ -23,6 +23,10 @@ def confirmar_consulta(date):
         
     return redirect(url_for("nutricionista.visualizar_calendario"))
 
-
-    
-
+@nutricionista.route("/cancelar_consulta/<date>")
+@login_required
+def cancelar_consulta(date):
+    consulta_repository = ConsultaRepository()
+    consulta_repository.update_status(date, "Consulta Cancelada")
+        
+    return redirect(url_for("nutricionista.visualizar_calendario"))
