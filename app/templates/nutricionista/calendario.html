@@ -23,7 +23,7 @@
                                 <p>{{ consulta.nutricionista_info() }}</p>
                                 {% if consulta.status == "Agendado" %}
 
-                                    <a href="" class="btn btn-success">Confirmar</a>
+                                    <a href="{{ url_for('nutricionista.confirmar_consulta', date=consulta.date) }}" class="btn btn-success">Confirmar</a>
                                     <a href="" class="btn btn-danger">Cancelar</a>
 
                                 {% endif %}

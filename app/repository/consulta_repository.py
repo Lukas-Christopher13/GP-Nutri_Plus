@@ -20,3 +20,10 @@ class ConsultaRepository:
     
     def update(self, consulta: Consulta):
         db.session.commit()
+
+    def update_status(self, date_, status):
+        consulta : Consulta = Consulta.query.filter_by(date=date_).first()
+
+        consulta.status = status
+
+        db.session.commit()
