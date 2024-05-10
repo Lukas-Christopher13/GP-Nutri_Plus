@@ -20,7 +20,13 @@
                     <div class="accordion-body">
                         {% if calendar.consulta_list %}
                             {% for consulta in calendar.consulta_list %}
-                                <p>{{ consulta.nutricionista_info() }}</p> 
+                                <p>{{ consulta.nutricionista_info() }}</p>
+                                {% if consulta.status == "Agendado" %}
+
+                                    <a href="" class="btn btn-success">Confirmar</a>
+                                    <a href="" class="btn btn-danger">Cancelar</a>
+
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <p>Todos os horários estão livres!</p>
