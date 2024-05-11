@@ -3,6 +3,7 @@ from flask import Flask
 from config import config
 
 from .ext.db import db
+from .ext.mail import mail
 from .ext.bootstrap5 import bootstrap
 from .ext.flask_login import login_manager
 from app.controllers.diet.diet_controller import diet_bp
@@ -14,6 +15,7 @@ def create_app(config_name: str):
     app.config.from_object(config[config_name])
 
     db.init_app(app)
+    mail.init_app(app)
     bootstrap.init_app(app)
     login_manager.init_app(app)
 

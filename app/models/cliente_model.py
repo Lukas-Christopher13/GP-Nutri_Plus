@@ -4,6 +4,7 @@ from datetime import timedelta
 from sqlalchemy import Column, Integer, String, DateTime, Date, ForeignKey
 
 from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 
 from flask_login import UserMixin
 
@@ -39,7 +40,21 @@ class Cliente(db.Model, UserMixin):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+    
+    def get_token(self):
+        serial = Serializer("segredo")
+        return serial.dumps({"user_id" : self.id})
+    
+    @staticmethod
+    def verify_token(token):
+        serial = Serializer("segredo")
+        try:
+            user_id = serial.load(token)["user_id"]
+        except:
+           return None
+        return Cliente.query.get(user_id)
 
+        
     def increase_login_attempts(self):
         if self.login_attempts >= 3:
             self.block_user()

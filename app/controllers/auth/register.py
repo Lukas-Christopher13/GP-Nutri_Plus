@@ -50,7 +50,7 @@ def register():
     return render_template("auth/register.html", form=form)
 
 @auth.route("/register-nutricionista", methods=["GET", "POST"])
-@login_required
+#@login_required
 def register_nutricionista():
     form = NutricionistaRegisterForm(request.form)
 
