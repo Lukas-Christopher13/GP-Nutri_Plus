@@ -20,8 +20,19 @@
                     <div class="accordion-body">
                         {% if calendar.consulta_list %}
                             {% for consulta in calendar.consulta_list %}
-                                <p>{{ consulta.cliente_info() }}</p> 
-                                {% if consulta.status == 'Agendado' %}
+                                <p>
+                                    {{ consulta.cliente_info() }} info: 
+
+                                    {% if consulta.status == "Consulta Confirmada" %}
+                                        <span class="text-success"> {{ consulta.status }} </span>
+                                    {% elif consulta.status == "Consulta Cancelada" %}
+                                        <span class="text-danger"> {{ consulta.status }} </span>
+                                    {% else %}
+                                        <span class="text-warning"> {{ consulta.status }} </span>
+                                    {% endif %}
+
+                                </p> 
+                                {% if consulta.status == 'Aguardando Confirmação' %}
                                     <form method="get" action="{{ url_for('cliente.cancelar_consulta', consulta_date=consulta.date, consulta_time=consulta.time) }}">
                                         <button type="submit" class="btn btn-danger">Cancelar</button>
                                     </form>

@@ -17,7 +17,7 @@ class Consulta(db.Model):
     cliente_id = Column(Integer, ForeignKey("cliente.id"), nullable=False)
 
     def cliente_info(self):
-        return f"{self.time} | {self.status} | HORÁRIO AGENDADO!"
+        return f"HORÁRIO AGENDADO! | {self.time} |"
     
     def nutricionista_info(self):
         cliente_repository = ClienteRepository()

@@ -41,7 +41,7 @@ def agendar_consulta():
     consulta = Consulta(
         date=form.date.data,
         time=time,
-        status="Agendado",
+        status="Aguardando Confirmação",
         cliente_id=current_user.id
     )
 
