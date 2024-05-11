@@ -22,4 +22,5 @@ class Consulta(db.Model):
     def nutricionista_info(self):
         cliente_repository = ClienteRepository()
         cliente: Cliente = cliente_repository.get_cliente_by_id(self.cliente_id)
-        return f"Cliente: {cliente.full_name} | Horario: {self.time} H | Status: {self.status}"
+        return f"Cliente: {cliente.full_name} | Horario: {self.time} H |"
+
