@@ -21,8 +21,8 @@ class ConsultaRepository:
     def update(self, consulta: Consulta):
         db.session.commit()
 
-    def update_status(self, date_, status):
-        consulta : Consulta = Consulta.query.filter_by(date=date_).first()
+    def update_status(self, date_, time_, status):
+        consulta : Consulta = Consulta.query.filter_by(date=date_, time=time_).first()
 
         consulta.status = status
 

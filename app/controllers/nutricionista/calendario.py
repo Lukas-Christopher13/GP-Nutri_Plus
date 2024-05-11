@@ -15,18 +15,18 @@ def visualizar_calendario():
 
     return render_template("nutricionista/calendario.html", calendars=consulta_service.calendar_list)
 
-@nutricionista.route("/confirmar_consulta/<date>")
+@nutricionista.route("/confirmar_consulta/<date>/<time>")
 @login_required
-def confirmar_consulta(date):
+def confirmar_consulta(date, time):
     consulta_repository = ConsultaRepository()
-    consulta_repository.update_status(date, "Consulta Confirmada")
+    consulta_repository.update_status(date, time, "Consulta Confirmada")
         
     return redirect(url_for("nutricionista.visualizar_calendario"))
 
-@nutricionista.route("/cancelar_consulta/<date>")
+@nutricionista.route("/cancelar_consulta/<date>/<time>")
 @login_required
-def cancelar_consulta(date):
+def cancelar_consulta(date, time):
     consulta_repository = ConsultaRepository()
-    consulta_repository.update_status(date, "Consulta Cancelada")
+    consulta_repository.update_status(date, time, "Consulta Cancelada")
         
     return redirect(url_for("nutricionista.visualizar_calendario"))
