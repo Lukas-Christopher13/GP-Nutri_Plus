@@ -19,6 +19,10 @@ def reset_password():
     if form.validate():
         cliente = Cliente.query.filter(Cliente.email==form.email.data).first()
 
+        if cliente is None:
+            message = "Email invalido! Esse usuário não possui cadastro!"
+            return render_template("auth/forgot_password.html", form=form, message=message)
+
         send_email(cliente)
         flash("O requisição realizada. Verifique a caixa de entrada do seu email")
         
