@@ -25,7 +25,7 @@ def reset_password():
             return render_template("auth/forgot_password.html", form=form, message=message)
 
         try_send_email(user)
-        flash("O requisição realizada. Verifique a caixa de entrada do seu email")
+        flash("A requisição foi realizada. Verifique a caixa de entrada do seu email")
         
         return redirect(url_for("auth.login"))
         
