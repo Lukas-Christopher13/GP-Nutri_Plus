@@ -7,6 +7,7 @@ from flask_mail import Message
 from ...forms.auth.reset_password_form import ResetPasswordForm, SetNewPasswordForm
 
 from ...models.cliente_model import Cliente
+from ...models.nuticionista_model import Nutricionista
 
 from ...ext.db import db
 from ...ext.mail import mail
@@ -17,18 +18,32 @@ def reset_password():
 
     #se o cliente não existir da erro!
     if form.validate():
-        cliente = Cliente.query.filter(Cliente.email==form.email.data).first()
+        user = get_user_by_email(form.email.data)
 
-        if cliente is None:
+        if user is None:
             message = "Email invalido! Esse usuário não possui cadastro!"
             return render_template("auth/forgot_password.html", form=form, message=message)
 
-        send_email(cliente)
+        try_send_email(user)
         flash("O requisição realizada. Verifique a caixa de entrada do seu email")
         
         return redirect(url_for("auth.login"))
         
     return render_template("auth/forgot_password.html", form=form)
+
+def get_user_by_email(email):
+    user = Cliente.query.filter(Cliente.email == email).first()
+    
+    if user is None:
+        user = Nutricionista.query.filter(Nutricionista.email == email).first()
+    
+    return user
+    
+def try_send_email(user):
+    try:
+        send_email(user)
+    except:
+        pass
 
 def send_email(user):
     token = user.get_token()
