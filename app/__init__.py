@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, g
 
 from config import config
 
@@ -9,6 +9,8 @@ from .ext.flask_login import login_manager
 from app.controllers.diet.diet_controller import diet_bp
 from .services.lembrete_consulta_service import init_scheduler
 
+import time
+import logging
 
 
 app = Flask(__name__)
@@ -44,6 +46,29 @@ def create_app(config_name: str):
 
     init_scheduler(app)
 
+    #tempo de resposta com middleware
+    @app.before_request
+    def start_timer():
+        g.start_time = time.time()
+
+    @app.after_request
+    def log_response_time(response):
+        if hasattr(g, 'start_time'):
+            response_time = time.time() - g.start_time
+            app.logger.info(f"Request to {request.path} took {response_time:.4f} seconds")
+        return response
+
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s '
+        '[in %(pathname)s:%(lineno)d]'
+    )
+    handler.setFormatter(formatter)
+    app.logger.addHandler(handler)
+    app.logger.setLevel(logging.INFO)
+    
+    app.logger.propagate = False
 
     return app
 
