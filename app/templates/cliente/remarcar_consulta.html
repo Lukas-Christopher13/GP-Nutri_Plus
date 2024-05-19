@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% from "utils/_formhelpers.html" import render_field %}
+
+{% block content %}
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+
+    <h1>Remarcar Consulta</h1>
+
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {{ render_field(form.date) }}
+        {{ render_field(form.time) }}
+
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </form>
+
+    <button type="button" class="btn btn-light" onclick="window.history.back()">Voltar</button>
+
+{% endblock %}

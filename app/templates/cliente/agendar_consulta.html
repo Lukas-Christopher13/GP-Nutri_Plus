@@ -37,6 +37,10 @@
                                         <button type="submit" class="btn btn-danger">Cancelar</button>
                                     </form>
                                 {% endif %}
+                                <!-- Adiciona o botão de remarcar -->
+                                <form method="get" action="{{ url_for('cliente.remarcar_consulta', consulta_date=consulta.date, consulta_time=consulta.time) }}">
+                                    <button type="submit" class="btn btn-warning">Remarcar</button>
+                                </form>
                             {% endfor %}
                         {% else %}
                             <p>Todos os horários estão livres!</p>
