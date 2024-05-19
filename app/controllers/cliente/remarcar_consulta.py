@@ -42,13 +42,13 @@ def remarcar_consulta(consulta_date, consulta_time):
             message = "Essa data já passou!"
             return render_template("cliente/remarcar_consulta.html", form=form, message=message)
 
-        # Atualizar os detalhes da consulta no banco de dados
+        
         consulta_a_remarcar.date = new_date
         consulta_a_remarcar.time = new_time
+        consulta_a_remarcar.status = "Aguardando Confirmação"
         consultaRepository.update(consulta_a_remarcar)
 
-        flash("Consulta remarcada com sucesso!", "success")
+        flash("Consulta remarcada com sucesso e aguardando confirmação!", "success")
         return redirect(url_for("cliente.agendar_consulta"))
 
     return render_template("cliente/remarcar_consulta.html", form=form)
-
