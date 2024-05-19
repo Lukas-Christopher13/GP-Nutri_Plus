@@ -1,5 +1,7 @@
 from ..ext.db import db
 from ..models.consulta_model import Consulta
+from datetime import datetime
+
 
 
 class ConsultaRepository:
@@ -27,3 +29,6 @@ class ConsultaRepository:
         consulta.status = status
 
         db.session.commit()
+        
+    def get_all_between(self, start_time: datetime, end_time: datetime):
+        return Consulta.query.filter(Consulta.date.between(start_time, end_time)).all()
