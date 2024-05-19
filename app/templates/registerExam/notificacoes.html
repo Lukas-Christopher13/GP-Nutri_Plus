@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Notificações</h1>
+<ul>
+    {% for notification in notifications %}
+    <li>
+        {{ notification.message }} - {{ notification.timestamp }}
+        {% if not notification.read %}
+        <strong>(Nova)</strong>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

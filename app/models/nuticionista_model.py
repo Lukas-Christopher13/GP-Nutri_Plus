@@ -1,7 +1,7 @@
 from datetime import datetime
 from datetime import timedelta
 
-from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy import Column, Integer, String, Date, DateTime, ForeignKey, Boolean
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -28,6 +28,8 @@ class Nutricionista(db.Model, UserMixin):
     block_duration = Column(DateTime, default=datetime.now())
 
     clientes = db.relationship("Cliente", backref="nutricionista", lazy=True)
+    notifications = db.relationship("Notification", backref="nutricionista", lazy=True)
+
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -57,3 +59,11 @@ class Nutricionista(db.Model, UserMixin):
         self.login_attempts = 0
         self.block_duration = datetime.now()
         db.session.commit()
+
+class Notification(db.Model):
+    id = Column(Integer, primary_key=True)
+    message = Column(String(255), nullable=False)
+    read = Column(Boolean, default=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    nutricionista_id = Column(Integer, ForeignKey('nutricionista.id'), nullable=False)    
+    
