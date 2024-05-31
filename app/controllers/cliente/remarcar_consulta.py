@@ -6,6 +6,7 @@ from ...models.consulta_model import Consulta
 from ...repository.consulta_repository import ConsultaRepository
 from ...services.agendar_consulta_service import ConsultaService
 from ...forms.cliente.agendar_consulta_form import AgendarConsultaForm
+from ...utils.notifications.remacacao_de_consulta import notificar_remaracacao_de_consulta
 
 
 @cliente.route("/remarcar_consulta/<consulta_date>/<consulta_time>", methods=["GET", "POST"])
@@ -49,6 +50,8 @@ def remarcar_consulta(consulta_date, consulta_time):
         consultaRepository.update(consulta_a_remarcar)
 
         flash("Consulta remarcada com sucesso e aguardando confirmação!", "success")
+        notificar_remaracacao_de_consulta(current_user)
+        
         return redirect(url_for("cliente.agendar_consulta"))
 
     return render_template("cliente/remarcar_consulta.html", form=form)

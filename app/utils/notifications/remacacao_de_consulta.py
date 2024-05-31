@@ -1,19 +1,16 @@
 from flask_mail import Message
 
+from ...ext.db import db
+
 from ...ext.mail import mail
+from ...models.cliente_model import Cliente
+from ...models.nuticionista_model import Notification
 
+def notificar_remaracacao_de_consulta(cliente: Cliente):
+    message = f"O cliente {cliente.full_name} deseja remarcar a data de sua consulta!"
+    nutricionista = cliente.nutricionista_id
+ 
+    notification = Notification(message=message, nutricionista_id=nutricionista)
 
-def notificar_remaracacao_de_consulta(sender, clinete_email):
-    body_message = f"O clinete: {clinete_email}. Deseja remarcar a data de sua consulta!"
-    try_send_message(sender, clinete_email, body_message)
-
-def try_send_message(sender, cliente_email, body_message):
-    try:
-        send_message(sender, cliente_email, body_message)
-    except:
-        pass
-
-def send_message(sender, cliente_email ,body_message):
-    msg = Message("Nutri Pluas Alerta!", recipients=[cliente_email], sender=sender)
-    msg.body = body_message
-    mail.send(msg)
+    db.session.add(notification)
+    db.session.commit()
