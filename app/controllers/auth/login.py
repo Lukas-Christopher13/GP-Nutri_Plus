@@ -1,5 +1,7 @@
 from . import auth
 
+from http import HTTPStatus
+
 from flask import render_template, redirect, url_for, request
 
 from flask_login import login_user
@@ -22,7 +24,7 @@ def login():
     
             if cliente.is_blocked():
                 message = "Essa conta foi bloqueada temporariamente por excesso de tentativas de login!"
-                return render_template("/auth/login.html", form=form, message=message)
+                return render_template("/auth/login.html", form=form, message=message), HTTPStatus.BAD_REQUEST
             
             if cliente.check_password(form.password.data):
                 cliente.update_login_attempts()
@@ -35,7 +37,7 @@ def login():
 
             if nutricionista.is_blocked():
                 message = "Essa conta foi bloqueada temporariamente por excesso de tentativas de login!"
-                return render_template("/auth/login.html", form=form, message=message)
+                return render_template("/auth/login.html", form=form, message=message), HTTPStatus.BAD_REQUEST
             
             if nutricionista.check_password(form.password.data):
                 nutricionista.update_login_attempts()
