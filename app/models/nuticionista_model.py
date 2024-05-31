@@ -1,3 +1,5 @@
+import uuid
+
 from datetime import datetime
 from datetime import timedelta
 
@@ -9,15 +11,22 @@ from flask_login import UserMixin
 
 from ..ext.db import db
 from ..ext.flask_login import login_manager
+from ..models.cliente_model import Cliente
 
 @login_manager.user_loader
 def get_user(user_id):
-    return Nutricionista.query.filter_by(id=user_id).first()
+    cliente = Cliente.query.filter_by(id=user_id).first()
+    nutricionista = Nutricionista.query.filter_by(id=user_id).first()
+
+    if cliente is not None:
+        return cliente
+
+    return nutricionista
 
 class Nutricionista(db.Model, UserMixin):
     __tablename__ = "nutricionista"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     email = Column(String(length=60), unique=True)
     full_name = Column(String(length=60))
     birt_date = Column(Date)

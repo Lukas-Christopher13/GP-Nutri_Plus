@@ -1,3 +1,5 @@
+import uuid
+
 from datetime import datetime
 from datetime import timedelta
 
@@ -11,14 +13,11 @@ from flask_login import UserMixin
 from ..ext.db import db
 from ..ext.flask_login import login_manager
 
-@login_manager.user_loader
-def get_user(user_id):
-    return Cliente.query.filter_by(id=user_id).first()
 
 class Cliente(db.Model, UserMixin):
     __tablename__ = "cliente"
     
-    id = Column(Integer, primary_key=True)
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     email = Column(String(length=60), unique=True)
     full_name = Column(String(length=60))
     birt_date = Column(Date)
