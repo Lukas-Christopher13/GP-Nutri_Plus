@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% from "utils/_formhelpers.html" import render_field %}
+
+{% block title %} Historico {% endblock %}
+
+{% block content %}
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+
+    <h1>Histórico</h1>
+
+    <h2>Dietas</h2>
+
+    <h2>Consultas</h2>
+
+
+{% endblock %}
