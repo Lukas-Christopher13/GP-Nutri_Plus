@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Atividades</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Atividades Registradas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome da Atividade</th>
+                    <th>Duração (minutos)</th>
+                    <th>Intensidade</th>
+                    <th>Data</th>
+                    <th>Calorias Queimadas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in activities %}
+                    <tr>
+                        <td>{{ activity.nome_atividade }}</td>
+                        <td>{{ activity.duracao }}</td>
+                        <td>{{ activity.intensidade }}</td>
+                        <td>{{ activity.data_atividade }}</td>
+                        <td>{{ activity.calorias_queimadas }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

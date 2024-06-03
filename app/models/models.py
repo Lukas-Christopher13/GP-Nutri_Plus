@@ -34,6 +34,7 @@ class Activity(db.Model):
     duracao = db.Column(db.Integer, nullable=False)
     intensidade = db.Column(db.String(100), nullable=False)
     data_atividade = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+    calorias_queimadas = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         return f"Activity(nome_atividade={self.nome_atividade}, duracao={self.duracao}, intensidade={self.intensidade}, data_atividade={self.data_atividade})"
