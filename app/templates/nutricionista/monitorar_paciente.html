@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% from "utils/_formhelpers.html" import render_field %}
+
+{% with logout_url="/logout" %}
+    {% include "utils/_logout_navbar.html" %}
+{% endwith %}
+
+{% block content %}
+
+    <div class="container my-4">
+        <h1 class="text-center display-4">Pacientes</h1>
+    </div>
+    
+    <div class="container">
+        <div class="list-group">
+            {% for cliente in clientes %}
+                <a href="{{ url_for('nutricionista.monitorar_paciente', data=cliente.id) }}" class="list-group-item list-group-item-action">
+                    {{ cliente.full_name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+{% endblock %}
