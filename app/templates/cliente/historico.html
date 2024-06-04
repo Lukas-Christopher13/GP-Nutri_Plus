@@ -12,7 +12,41 @@
 
     <h2>Dietas</h2>
 
-    <h2>Consultas</h2>
+
+
+    <title>Minhas Consultas</title>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Minhas Consultas</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consulta in consultas %}
+                    <tr>
+                        <td>{{ consulta.date }}</td>
+                        <td>{{ consulta.time }} h</td>
+                        <td>
+                            {% if consulta.status == "Consulta Confirmada" %}
+                                <span class="text-success"> {{ consulta.status }} </span>
+                            {% elif consulta.status == "Consulta Cancelada" %}
+                                <span class="text-danger"> {{ consulta.status }} </span>
+                            {% else %}
+                                <span class="text-warning"> {{ consulta.status }} </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 {% endblock %}
