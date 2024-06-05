@@ -67,3 +67,4 @@ def register_nutricionista():
             print(e)
 
     return render_template("auth/nutricionista_register.html", form=form)
+

@@ -12,6 +12,7 @@ from flask_login import UserMixin
 from ..ext.db import db
 from ..ext.flask_login import login_manager
 from ..models.cliente_model import Cliente
+from ..models.dispositivos import Dispositivo
 
 @login_manager.user_loader
 def get_user(user_id):
@@ -68,6 +69,14 @@ class Nutricionista(db.Model, UserMixin):
         self.login_attempts = 0
         self.block_duration = datetime.now()
         db.session.commit()
+
+    def is_device(self, divice : Dispositivo):
+        dispositivos = Dispositivo.query.filter_by(nutricionista_id = self.id).all()
+
+        for dispositivo in dispositivos:
+            if dispositivo == divice:
+                return True
+        return False
 
 class Notification(db.Model):
     id = Column(Integer, primary_key=True)

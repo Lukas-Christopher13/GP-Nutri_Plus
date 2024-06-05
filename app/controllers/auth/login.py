@@ -1,5 +1,7 @@
 from . import auth
 
+from http import HTTPStatus
+
 from flask import render_template, redirect, url_for, request
 
 from flask_login import login_user
@@ -7,6 +9,7 @@ from flask_login import login_user
 from ...forms.auth.login_form import LoginForm
 from ...models.cliente_model  import Cliente
 from ...models.nuticionista_model import Nutricionista
+from ...models.dispositivos import Dispositivo
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -22,7 +25,7 @@ def login():
     
             if cliente.is_blocked():
                 message = "Essa conta foi bloqueada temporariamente por excesso de tentativas de login!"
-                return render_template("/auth/login.html", form=form, message=message)
+                return render_template("/auth/login.html", form=form, message=message), HTTPStatus.BAD_REQUEST
             
             if cliente.check_password(form.password.data):
                 cliente.update_login_attempts()
@@ -32,16 +35,22 @@ def login():
             cliente.increase_login_attempts()
 
         if nutricionista is not None:
+            current_divice = Dispositivo.create_divice(request, nutricionista)
 
             if nutricionista.is_blocked():
                 message = "Essa conta foi bloqueada temporariamente por excesso de tentativas de login!"
-                return render_template("/auth/login.html", form=form, message=message)
+                return render_template("/auth/login.html", form=form, message=message), HTTPStatus.BAD_REQUEST
+            
+            if not nutricionista.is_device(current_divice):
+                message = "Dispositivo desconhecido! você não pode logar a partir desse dispositivo!"
+                return render_template("/auth/login.html", form=form, message=message), HTTPStatus.BAD_REQUEST
             
             if nutricionista.check_password(form.password.data):
                 nutricionista.update_login_attempts()
                 login_user(nutricionista)
+
                 return redirect(url_for("home.nutricionista_home_page"))
-            
+
             nutricionista.increase_login_attempts()
       
         return redirect("/login")

@@ -6,6 +6,7 @@ from app.models.models import Food, Exam, Diet
 from app.models.cliente_model import Cliente
 from app.models.consulta_model import Consulta
 from app.models.nuticionista_model import Nutricionista
+from app.models.dispositivos import Dispositivo
 
 from app.controllers import *
 

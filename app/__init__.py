@@ -43,6 +43,9 @@ def create_app(config_name: str):
     from .controllers.activity import activity as activity_blueprint
     app.register_blueprint(activity_blueprint)
 
+    from .controllers.notification import notification as notification_blueprint
+    app.register_blueprint(notification_blueprint)
+
     init_scheduler(app)
 
     #tempo de resposta com middleware
