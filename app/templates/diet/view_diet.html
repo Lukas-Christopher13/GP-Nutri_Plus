@@ -3,45 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizar Todas as Dietas</title>
+    <title>Todas as Dietas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                        {{ message }}
-                    </div>
+        <h1>Todas as Dietas</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nome da Dieta</th>
+                    <th>Objetivo</th>
+                    <th>Restrições</th>
+                    <th>Duração (dias)</th>
+                    <th>Cliente</th>
+                    <th>Comidas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diet in diets %}
+                <tr>
+                    <td>{{ diet.name }}</td>
+                    <td>{{ diet.objective }}</td>
+                    <td>{{ diet.restrictions }}</td>
+                    <td>{{ diet.duration }}</td>
+                    <td>{{ diet.cliente.full_name }}</td>
+                    <td>
+                        <ul>
+                            {% for food in diet.foods %}
+                            <li>{{ food.name }} - {{ food.quantity }} g</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
                 {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <h1>Visualizar Todas as Dietas</h1>
-        {% for diet in diets %}
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h2 class="card-title">{{ diet.name }}</h2>
-                </div>
-                <div class="card-body">
-                    <p><strong>Objetivo:</strong> {{ diet.objective }}</p>
-                    <p><strong>Restrições:</strong> {{ diet.restrictions }}</p>
-                    <p><strong>Duração (dias):</strong> {{ diet.duration }}</p>
-                    <p><strong>Cliente:</strong> {{ diet.cliente.full_name if diet.cliente else 'N/A' }}</p>
-                    
-                    <h3>Comidas</h3>
-                    <ul class="list-group">
-                        {% for food in diet.foods %}
-                            <li class="list-group-item">
-                                <strong>Nome:</strong> {{ food.name }}<br>
-                                <strong>Quantidade:</strong> {{ food.quantity }} gramas
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

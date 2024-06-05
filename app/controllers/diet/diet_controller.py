@@ -1,21 +1,20 @@
 from flask import Blueprint, render_template, redirect, url_for, session, flash
 from sqlalchemy.exc import IntegrityError
 from flask_login import login_required
-from ...forms.forms import DietForm, FoodForm
+from ...forms.forms import DietForm, MultipleFoodForm
 from ...models.models import Diet, Food, db
-from ...models.cliente_model import Cliente
+from . import diet
 
-diet_bp = Blueprint('diet', __name__, url_prefix='/diet')
 
-@diet_bp.route('/new', methods=['GET', 'POST'])
+@diet.route('/new', methods=['GET', 'POST'])
 @login_required
 def new_diet():
     diet_form = DietForm()
-    food_form = FoodForm()
+    food_form = MultipleFoodForm()
 
     if 'diet_data' in session:
         diet_form = DietForm(data=session['diet_data'])
-        food_form = FoodForm(data=session['food_data'])
+        food_form = MultipleFoodForm(data=session['food_data'])
 
     if diet_form.validate_on_submit() and food_form.validate_on_submit():
         try:
@@ -52,9 +51,7 @@ def new_diet():
 
     return render_template('diet/form_diet.html', diet_form=diet_form, food_form=food_form)
 
-@diet_bp.route('/all', methods=['GET'])
+@diet.route('/all', methods=['GET'])
 def view_all_diets():
     diets = Diet.query.all()
     return render_template('diet/view_diet.html', diets=diets)
-
-
