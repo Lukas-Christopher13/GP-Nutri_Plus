@@ -6,7 +6,6 @@ from .ext.db import db
 from .ext.mail import mail
 from .ext.bootstrap5 import bootstrap
 from .ext.flask_login import login_manager
-from app.controllers.diet.diet_controller import diet_bp
 from .services.lembrete_consulta_service import init_scheduler
 
 import time
@@ -30,7 +29,7 @@ def create_app(config_name: str):
     app.register_blueprint(auth_blueprint)
 
     from .controllers.diet import diet as diet_bluesprint
-    app.register_blueprint(diet_bp)
+    app.register_blueprint(diet_bluesprint)
 
     from .controllers.exam import exam as exam_bluesprint
     app.register_blueprint(exam_bluesprint)

@@ -21,5 +21,31 @@
         </div>
     </div>
 
-    
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Atividade</th>
+                        <th>Intensidade</th>
+                        <th>Duração</th>
+                        <th>Calorias Queimadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activitys %}
+                        <tr>
+                            <td>{{ activity.data_atividade }}</td>
+                            <td>{{ activity.nome_atividade }}</td>
+                            <td>{{ activity.intensidade }}</td>
+                            <td>{{ activity.duracao }}</td>
+                            <td>{{ activity.calorias_queimadas }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
