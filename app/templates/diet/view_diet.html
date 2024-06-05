@@ -1,12 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Todas as Dietas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-<h2>Diet: {{ diet.name }}</h2>
-  <p>Objective: {{ diet.objective }}</p>
-  <p>Restrictions: {{ diet.restrictions }}</p>
-  <p>Duration: {{ diet.duration }} days</p>
-
-  <h3>Foods:</h3>
-  <ul>
-    {% for food in foods %}
-      <li>{{ food.name }} - {{ food.quantity }} grams</li>
-    {% endfor %}
-  </ul>
+        <h1>Visualizar Todas as Dietas</h1>
+        {% for diet in diets %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h2 class="card-title">{{ diet.name }}</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Objetivo:</strong> {{ diet.objective }}</p>
+                    <p><strong>Restrições:</strong> {{ diet.restrictions }}</p>
+                    <p><strong>Duração (dias):</strong> {{ diet.duration }}</p>
+                    <p><strong>Cliente:</strong> {{ diet.cliente.full_name if diet.cliente else 'N/A' }}</p>
+                    
+                    <h3>Comidas</h3>
+                    <ul class="list-group">
+                        {% for food in diet.foods %}
+                            <li class="list-group-item">
+                                <strong>Nome:</strong> {{ food.name }}<br>
+                                <strong>Quantidade:</strong> {{ food.quantity }} gramas
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

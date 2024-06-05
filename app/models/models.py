@@ -8,7 +8,8 @@ class Diet(db.Model):
     name = db.Column(db.String(100), nullable=False)
     objective = db.Column(db.String(200))
     restrictions = db.Column(db.String(200))
-    duration = db.Column(db.Integer)  
+    duration = db.Column(db.Integer)
+    cliente_id = db.Column(db.String(36), db.ForeignKey('cliente.id'), nullable=False)
 
 class Food(db.Model):
     id = db.Column(db.Integer, primary_key=True)

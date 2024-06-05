@@ -34,6 +34,8 @@ class Cliente(db.Model, UserMixin):
 
     nutricionista_id = Column(Integer, ForeignKey("nutricionista.id"), nullable= False)
 
+    diets = db.relationship("Diet", backref="cliente", lazy=True)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
