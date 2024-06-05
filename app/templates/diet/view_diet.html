@@ -1,12 +1,44 @@
-
-<h2>Diet: {{ diet.name }}</h2>
-  <p>Objective: {{ diet.objective }}</p>
-  <p>Restrictions: {{ diet.restrictions }}</p>
-  <p>Duration: {{ diet.duration }} days</p>
-
-  <h3>Foods:</h3>
-  <ul>
-    {% for food in foods %}
-      <li>{{ food.name }} - {{ food.quantity }} grams</li>
-    {% endfor %}
-  </ul>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas as Dietas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Todas as Dietas</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nome da Dieta</th>
+                    <th>Objetivo</th>
+                    <th>Restrições</th>
+                    <th>Duração (dias)</th>
+                    <th>Cliente</th>
+                    <th>Comidas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diet in diets %}
+                <tr>
+                    <td>{{ diet.name }}</td>
+                    <td>{{ diet.objective }}</td>
+                    <td>{{ diet.restrictions }}</td>
+                    <td>{{ diet.duration }}</td>
+                    <td>{{ diet.cliente.full_name }}</td>
+                    <td>
+                        <ul>
+                            {% for food in diet.foods %}
+                            <li>{{ food.name }} - {{ food.quantity }} g</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
