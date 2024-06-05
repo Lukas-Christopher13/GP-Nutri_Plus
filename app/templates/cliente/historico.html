@@ -12,7 +12,10 @@
 
     <h2>Dietas</h2>
 
-
+    {% for dieta in dietas %}
+        <p>{{dieta.name}} | {{dieta.objective}} | {{dieta.restrictions}} | {{dieta.duration}}</p>
+    
+    {% endfor %}
 
     <title>Minhas Consultas</title>
 
