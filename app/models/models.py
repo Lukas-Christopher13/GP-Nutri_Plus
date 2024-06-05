@@ -9,7 +9,7 @@ class Diet(db.Model):
     objective = db.Column(db.String(200))
     restrictions = db.Column(db.String(200))
     duration = db.Column(db.Integer)
-    cliente_id = db.Column(db.String(36), db.ForeignKey('cliente.id'), nullable=False)
+    cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'), nullable=False)
 
 class Food(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +36,7 @@ class Activity(db.Model):
     intensidade = db.Column(db.String(100), nullable=False)
     data_atividade = db.Column(db.Date, nullable=False, default=datetime.utcnow)
     calorias_queimadas = db.Column(db.Float, nullable=False)
+    cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'), nullable=False)
 
     def __repr__(self):
         return f"Activity(nome_atividade={self.nome_atividade}, duracao={self.duracao}, intensidade={self.intensidade}, data_atividade={self.data_atividade})"

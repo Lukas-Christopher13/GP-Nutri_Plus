@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import current_user
 from ...models.models import Activity, db
 from ...forms.forms import ActivityForm
 from . import activity
@@ -30,18 +31,19 @@ def register_activity():
             duracao=duracao, 
             intensidade=intensidade, 
             data_atividade=data_atividade,
-            calorias_queimadas=calorias_queimadas
+            calorias_queimadas=calorias_queimadas,
+            cliente_id=current_user.id
         )
         db.session.add(activity)
         db.session.commit()
 
         #flash('Atividade registrada com sucesso!', 'success')
-        return redirect(url_for('activity.register_activity'))
+        return redirect(url_for('activity.view_activities'))
 
     return render_template('activity/register_activity.html', form=form)
 
 
 @activity.route('/view_activities')
 def view_activities():
-    activities = Activity.query.all()
+    activities = Activity.query.filter_by(cliente_id=current_user.id).all()
     return render_template('activity/view_activities.html', activities=activities)

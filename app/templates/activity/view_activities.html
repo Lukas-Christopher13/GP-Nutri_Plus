@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,7 @@
                     <th>Intensidade</th>
                     <th>Data</th>
                     <th>Calorias Queimadas</th>
+                    <th>Usuário</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>{{ activity.intensidade }}</td>
                         <td>{{ activity.data_atividade }}</td>
                         <td>{{ activity.calorias_queimadas }}</td>
+                        <td>{{ activity.cliente.full_name }}</td> 
                     </tr>
                 {% endfor %}
             </tbody>
