@@ -2,13 +2,16 @@ from . import cliente
 
 from datetime import datetime
 
-from flask import render_template, redirect, url_for, request
+from flask import current_app, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 
 from ...models.consulta_model import Consulta
 from ...repository.consulta_repository import ConsultaRepository
 from ...services.agendar_consulta_service import ConsultaService
 from ...forms.cliente.agendar_consulta_form import AgendarConsultaForm
+
+from ...utils.sms import send_sms
+
 
 
 @cliente.route("/agendar_consulta", methods=["GET", "POST"])
@@ -46,5 +49,10 @@ def agendar_consulta():
     )
 
     consultaRepository.insert(consulta)
+
+    # Enviar SMS ao cliente
+    sms_body = f"Sua consulta foi REQUISITADA para {date.strftime('%d/%m/%Y')} às {time}."
+    client_phone_number = current_app.config['CLIENT_PHONE_NUMBER']
+    send_sms(client_phone_number, sms_body)
 
     return redirect(url_for("cliente.agendar_consulta"))

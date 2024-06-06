@@ -1,6 +1,7 @@
+from app.utils.sms import send_sms
 from . import nutricionista
 
-from flask import render_template, redirect, url_for
+from flask import current_app, render_template, redirect, url_for
 
 from flask_login import login_required
 
@@ -20,6 +21,12 @@ def visualizar_calendario():
 def confirmar_consulta(date, time):
     consulta_repository = ConsultaRepository()
     consulta_repository.update_status(date, time, "Consulta Confirmada")
+
+    # Enviar SMS ao cliente
+    sms_body = f"Sua consulta foi CONFIRMADA para {date} às {time}."
+    client_phone_number = current_app.config['CLIENT_PHONE_NUMBER']
+    send_sms(client_phone_number, sms_body)
+
         
     return redirect(url_for("nutricionista.visualizar_calendario"))
 
