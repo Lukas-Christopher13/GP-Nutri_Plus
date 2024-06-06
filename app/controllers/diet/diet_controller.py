@@ -1,53 +1,48 @@
-from flask import Blueprint, render_template, redirect, url_for, session, flash
-from sqlalchemy.exc import IntegrityError
-from flask_login import login_required
-from ...forms.forms import DietForm, MultipleFoodForm
+from flask import Blueprint, render_template, redirect, request, url_for
+from flask_login import current_user, login_required
+from ...forms.forms import DietForm, FoodForm
 from ...models.models import Diet, Food, db
 from . import diet
-
 
 @diet.route('/new', methods=['GET', 'POST'])
 @login_required
 def new_diet():
     diet_form = DietForm()
-    food_form = MultipleFoodForm()
+    food_form = FoodForm()
 
-    if 'diet_data' in session:
-        diet_form = DietForm(data=session['diet_data'])
-        food_form = MultipleFoodForm(data=session['food_data'])
+    if diet_form.validate_on_submit():
+        # Obter dados do formulário de dieta
+        name = diet_form.name.data
+        objective = diet_form.objective.data
+        restrictions = diet_form.restrictions.data
+        duration = diet_form.duration.data
 
-    if diet_form.validate_on_submit() and food_form.validate_on_submit():
-        try:
-            diet = Diet(
-                name=diet_form.name.data,
-                objective=diet_form.objective.data,
-                restrictions=diet_form.restrictions.data,
-                duration=diet_form.duration.data,
-                cliente_id=diet_form.cliente.data.id
-            )
-            db.session.add(diet)
-            db.session.commit()
+        # Criar e adicionar a dieta ao banco de dados
+        diet = Diet(
+            name=name,
+            objective=objective,
+            restrictions=restrictions,
+            duration=duration,
+            cliente_id=current_user.id
+        )
+        db.session.add(diet)
+        db.session.commit()
 
-            for food_data in food_form.food_entries.data:
+        #problema nessa parte
+        """food_names = request.form.getlist('food_name')
+        food_quantities = request.form.getlist('food_quantity')
+
+        for food_name, food_quantity in zip(food_names, food_quantities):
+            if food_name and food_quantity:
                 food = Food(
-                    name=food_data['name'],
-                    quantity=food_data['quantity'],
-                    diet_id=diet.id
+                    name=food_name,
+                    quantity=food_quantity,
+                    diet=diet
                 )
                 db.session.add(food)
 
-            db.session.commit()
+        db.session.commit()"""
 
-            session.pop('diet_data', None)
-            session.pop('food_data', None)
-
-            return redirect(url_for('diet.view_diet', diet_id=diet.id))
-
-        except IntegrityError:
-            db.session.rollback()
-            session['diet_data'] = diet_form.data
-            session['food_data'] = food_form.data
-            flash("Erro ao salvar dieta e alimentos.", "error")
 
     return render_template('diet/form_diet.html', diet_form=diet_form, food_form=food_form)
 
