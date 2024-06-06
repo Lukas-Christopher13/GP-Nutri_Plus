@@ -3,6 +3,9 @@ from flask_login import current_user
 from ...models.models import Activity, db
 from ...forms.forms import ActivityForm
 from . import activity
+import matplotlib.pyplot as plt
+import os
+
 
 def calcular_calorias(intensidade, duracao):
     if intensidade.lower() == 'baixa':
@@ -13,6 +16,32 @@ def calcular_calorias(intensidade, duracao):
         return duracao * 12
     else:
         return duracao * 7
+
+
+
+def gerar_grafico_evolucao(activities):
+    datas = [activity.data_atividade for activity in activities]
+    calorias_queimadas = [activity.calorias_queimadas for activity in activities]
+    durações = [activity.duracao for activity in activities]
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(datas, calorias_queimadas, label='Calorias Queimadas', marker='o')
+    plt.plot(datas, durações, label='Duração', marker='s')
+    plt.xlabel('Data')
+    plt.ylabel('Valores')
+    plt.title('Evolução das Atividades')
+    plt.legend()
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    if not os.path.exists('static'):
+        os.makedirs('static')
+
+    plt_path = 'app/static/evolucao_atividades.png'
+    plt.savefig(plt_path)
+    plt.close()
+
+    return plt_path
 
 @activity.route('/register', methods=['GET', 'POST'])
 def register_activity():
@@ -38,12 +67,15 @@ def register_activity():
         db.session.commit()
 
         #flash('Atividade registrada com sucesso!', 'success')
-        return redirect(url_for('activity.view_activities'))
+        return redirect(url_for('home.cliente_home_page'))
 
     return render_template('activity/register_activity.html', form=form)
 
 
 @activity.route('/view_activities')
 def view_activities():
-    activities = Activity.query.filter_by(cliente_id=current_user.id).all()
-    return render_template('activity/view_activities.html', activities=activities)
+    activities = Activity.query.all()
+    plt = gerar_grafico_evolucao(activities)
+    return render_template('activity/view_activities.html', activities=activities, plt=plt)
+    
+    

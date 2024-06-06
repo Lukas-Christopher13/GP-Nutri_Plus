@@ -33,6 +33,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if plt %}
+        <div class="mt-5">
+            <h3>Evolução das Atividades</h3>
+            <img src="{{ url_for('static', filename='evolucao_atividades.png') }}" alt="Evolução das Atividades">
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>
