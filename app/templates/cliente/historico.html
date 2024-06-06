@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% from "utils/_formhelpers.html" import render_field %}
+
+{% block title %} Historico {% endblock %}
+
+{% block content %}
+    {% with logout_url="/logout" %}
+        {% include "utils/_logout_navbar.html" %}
+    {% endwith %}
+
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Lista de Dietas</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Objetivo</th>
+                    <th>Restrições</th>
+                    <th>Duração</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dieta in dietas %}
+                <tr>
+                    <td>{{ dieta.name }}</td>
+                    <td>{{ dieta.objective }}</td>
+                    <td>{{ dieta.restrictions }}</td>
+                    <td>{{ dieta.duration }} dias</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <title>Minhas Consultas</title>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Minhas Consultas</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consulta in consultas %}
+                    <tr>
+                        <td>{{ consulta.date }}</td>
+                        <td>{{ consulta.time }} h</td>
+                        <td>
+                            {% if consulta.status == "Consulta Confirmada" %}
+                                <span class="text-success"> {{ consulta.status }} </span>
+                            {% elif consulta.status == "Consulta Cancelada" %}
+                                <span class="text-danger"> {{ consulta.status }} </span>
+                            {% else %}
+                                <span class="text-warning"> {{ consulta.status }} </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
