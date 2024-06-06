@@ -17,7 +17,7 @@ class FoodForm(FlaskForm):
     quantity = FloatField('Quantidade (gramas)', validators=[DataRequired()])
 
 class MultipleFoodForm(FlaskForm):
-    food_entries = FieldList(FormField(FoodForm), min_entries=1) 
+    food_entries = FieldList(FormField(FoodForm), min_entries=1)
 
 
 class ActivityForm(FlaskForm):

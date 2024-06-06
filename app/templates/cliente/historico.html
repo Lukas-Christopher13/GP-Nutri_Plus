@@ -8,14 +8,30 @@
         {% include "utils/_logout_navbar.html" %}
     {% endwith %}
 
-    <h1>Histórico</h1>
 
-    <h2>Dietas</h2>
-
-    {% for dieta in dietas %}
-        <p>{{dieta.name}} | {{dieta.objective}} | {{dieta.restrictions}} | {{dieta.duration}}</p>
-    
-    {% endfor %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Lista de Dietas</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Objetivo</th>
+                    <th>Restrições</th>
+                    <th>Duração</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dieta in dietas %}
+                <tr>
+                    <td>{{ dieta.name }}</td>
+                    <td>{{ dieta.objective }}</td>
+                    <td>{{ dieta.restrictions }}</td>
+                    <td>{{ dieta.duration }} dias</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <title>Minhas Consultas</title>
 
