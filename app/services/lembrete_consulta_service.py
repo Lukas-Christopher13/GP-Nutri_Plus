@@ -1,32 +1,25 @@
-from flask_mail import Mail, Message
 from apscheduler.schedulers.background import BackgroundScheduler
+from ..models.consulta_model import Consulta
+from ..utils.sms import send_sms
 from datetime import datetime, timedelta
-import atexit
-from ..repository.consulta_repository import ConsultaRepository
+from flask import current_app
+from ..ext.db import db
 
-consulta_repository = ConsultaRepository()
-mail = Mail()
-
-def enviar_lembrete_consulta(app):
-    with app.app_context():
-        agora = datetime.now()
-        lembrete_time = agora + timedelta(hours=24)
-        consultas = consulta_repository.get_all_between(agora, lembrete_time)
-
+def send_reminder():
+    with current_app.app_context():
+        tomorrow = datetime.now() + timedelta(days=1)
+        consultas = Consulta.query.filter(
+            Consulta.date == tomorrow.date(),
+            Consulta.time - datetime.now().time() < timedelta(hours=24).total_seconds()
+        ).all()
         for consulta in consultas:
-            cliente = cliente.consulta
-            if cliente.email:
-                msg = Message(
-                    subject="Lembrete de Consulta",
-                    recipients=[cliente.email],
-                    body=f"Olá {cliente.nome},\n\nLembrete: você tem uma consulta agendada para {consulta.date} às {consulta.time}.\n\nAtenciosamente,\nEquipe de Nutricionistas"
-                )
-                mail.send(msg)
+            date = consulta.date
+            time = consulta.time.strftime('%H:%M')
+            sms_body = f"Sua consulta foi agendada para {date.strftime('%d/%m/%Y')} às {time}."
+            client_phone_number = current_app.config['CLIENT_PHONE_NUMBER']
+            send_sms(client_phone_number, sms_body)
 
-scheduler = BackgroundScheduler()
-
-def init_scheduler(app):
-    mail.init_app(app)
-    scheduler.add_job(func=lambda: enviar_lembrete_consulta(app), trigger='interval', hours=1)
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=send_reminder, trigger="interval", hours=24)
     scheduler.start()
-    atexit.register(lambda: scheduler.shutdown())

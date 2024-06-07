@@ -6,7 +6,7 @@ from .ext.db import db
 from .ext.mail import mail
 from .ext.bootstrap5 import bootstrap
 from .ext.flask_login import login_manager
-from .services.lembrete_consulta_service import init_scheduler
+from .services.lembrete_consulta_service import start_scheduler
 
 import time
 import logging
@@ -46,7 +46,7 @@ def create_app(config_name: str):
     from .controllers.notification import notification as notification_blueprint
     app.register_blueprint(notification_blueprint)
 
-    init_scheduler(app)
+    start_scheduler()
 
     #tempo de resposta com middleware
     @app.before_request
