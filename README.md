@@ -1,4 +1,4 @@
-# As branchs a serem analisadas sao a sprint_1, sprint_2 e sprint_3
+# As branchs a serem analisadas são a sprint_1, sprint_2, sprint_3 e a sprint_4
 
 # Guia de Configuração do Ambiente Virtual Python (venv)
 
