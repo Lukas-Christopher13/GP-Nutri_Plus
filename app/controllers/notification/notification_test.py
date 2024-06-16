@@ -10,7 +10,7 @@ from ...models.nuticionista_model import Notification
 
 from ...utils.log import my_log
 
-NUTRICIONISTA_TEST = "1dcb552e-a945-466c-8c52-e62a976ce89a"
+NUTRICIONISTA_TEST = "fc33f22f-4280-437c-880c-20310908f968"
 
 @notification.route("/send_notification_test")
 def send_notification_test():
