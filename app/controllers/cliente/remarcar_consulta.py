@@ -49,7 +49,7 @@ def remarcar_consulta(consulta_date, consulta_time):
         consulta_a_remarcar.status = "Aguardando Confirmação"
         consultaRepository.update(consulta_a_remarcar)
 
-        flash("Consulta remarcada com sucesso e aguardando confirmação!", "success")
+        
 
         message = f"O cliente {current_user.full_name} deseja remarcar a data de sua consulta!"
         notificar(current_user, message)
