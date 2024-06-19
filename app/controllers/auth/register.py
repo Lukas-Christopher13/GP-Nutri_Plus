@@ -37,6 +37,7 @@ def register():
                 country=form.country.data,
                 state=form.state.data,
                 city=form.city.data,
+                phone_number=form.phone_number.data,
                 nutricionista=nutricionista
             )
             cliente.set_password(form.password.data)

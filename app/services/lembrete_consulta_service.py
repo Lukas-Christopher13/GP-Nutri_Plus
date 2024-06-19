@@ -1,4 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
+from flask_login import current_user
 from ..models.consulta_model import Consulta
 from ..utils.sms import send_sms
 from datetime import datetime, timedelta
@@ -17,7 +18,7 @@ def send_reminder():
             time = consulta.time.strftime('%H:%M')
             sms_body = f"Sua consulta foi agendada para {date.strftime('%d/%m/%Y')} às {time}."
             client_phone_number = current_app.config['CLIENT_PHONE_NUMBER']
-            send_sms(client_phone_number, sms_body)
+            send_sms(client_phone_number.phone_number, sms_body)
 
 def start_scheduler():
     scheduler = BackgroundScheduler()

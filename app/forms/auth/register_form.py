@@ -8,6 +8,7 @@ class ClientRegisterForm(Form):
     country = StringField("Pais", [validators.Length(min=2, max=30)])
     state = StringField("Estado", [validators.Length(min=2, max=30)])
     city = StringField("Cidade", [validators.Length(min=2, max=30)])
+    phone_number = StringField('Phone Number', validators=[validators.Length(min=2, max=30)])
     password = PasswordField("Password", [validators.Length(min=8, max=16)])
     confirm_password = PasswordField("Confirme o seu Password", [validators.Length(min=8, max=16)])
 
