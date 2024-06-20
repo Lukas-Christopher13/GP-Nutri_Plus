@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 from ...models.models import Activity, db
 from ...forms.forms import ActivityForm
 from . import activity
@@ -44,6 +44,7 @@ def gerar_grafico_evolucao(activities):
     return plt_path
 
 @activity.route('/register', methods=['GET', 'POST'])
+@login_required
 def register_activity():
     form = ActivityForm()
 
@@ -66,13 +67,14 @@ def register_activity():
         db.session.add(activity)
         db.session.commit()
 
-        #flash('Atividade registrada com sucesso!', 'success')
+        
         return redirect(url_for('home.cliente_home_page'))
 
     return render_template('activity/register_activity.html', form=form)
 
 
 @activity.route('/view_activities')
+@login_required
 def view_activities():
     activities = Activity.query.all()
     plt = gerar_grafico_evolucao(activities)

@@ -40,6 +40,6 @@ def cancelar_consulta(consulta_date, consulta_time):
     message = f"O cliente {current_user.full_name} deseja remarcar a data de sua consulta!"
     notificar(current_user, message)
 
-    flash("Consulta cancelada com sucesso!", "success")
+    
     return redirect(url_for("cliente.agendar_consulta"))
 

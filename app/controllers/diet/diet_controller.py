@@ -48,6 +48,7 @@ def new_diet():
 
 
 @diet.route('/all', methods=['GET'])
+@login_required
 def view_all_diets():
     diets = Diet.query.all()
     return render_template('diet/view_diet.html', diets=diets)

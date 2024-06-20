@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from ...models.models import Exam, db
 from ...models.nuticionista_model import Notification
 from ...models.cliente_model import Cliente
-from flask_login import current_user
+from flask_login import current_user, login_required
 from . import exam
 
 EXTENSOES_PERMITIDAS = {'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'}
@@ -13,6 +13,7 @@ def arquivo_permitido(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in EXTENSOES_PERMITIDAS
 
 @exam.route('/sendExam', methods=['GET', 'POST'])
+@login_required
 def sendExam():
     if request.method == 'POST':
         nome_paciente = request.form['nome_paciente']
@@ -53,7 +54,7 @@ def sendExam():
             db.session.add(notification)
             db.session.commit()
 
-            flash('Exame enviado com sucesso para análise!', 'success')
+            
             return redirect(url_for('home.cliente_home_page'))
         else:
             flash('Por favor, envie um arquivo PDF, DOC, DOCX, JPG ou JPEG!', 'danger')
@@ -64,11 +65,13 @@ def sendExam():
 
 
 @exam.route('/history')
+@login_required
 def exam_history():
     exams = Exam.query.all()
     return render_template('registerExam/history.html', exams=exams)
 
 @exam.route('/download/<filename>')
+@login_required
 def download_file(filename):
     uploads_dir = os.path.join(current_app.root_path, 'uploads')
     filepath = os.path.join(uploads_dir, filename)
@@ -81,6 +84,7 @@ def download_file(filename):
         return redirect(url_for('exam.exam_history'))
     
 @exam.route('/notificacoes')
+@login_required
 def view_notifications():
     nutricionista = current_user
     notifications = Notification.query.filter_by(nutricionista_id=nutricionista.id).all()
