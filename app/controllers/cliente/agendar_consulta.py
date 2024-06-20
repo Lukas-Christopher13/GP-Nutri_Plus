@@ -52,7 +52,6 @@ def agendar_consulta():
 
     # Enviar SMS ao cliente
     sms_body = f"Sua consulta foi REQUISITADA para {date.strftime('%d/%m/%Y')} às {time}."
-    client_phone_number = current_app.config['CLIENT_PHONE_NUMBER']
-    send_sms(client_phone_number, sms_body)
+    send_sms(current_user.phone_number, sms_body)
 
     return redirect(url_for("cliente.agendar_consulta"))

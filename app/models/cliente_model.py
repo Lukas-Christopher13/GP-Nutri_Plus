@@ -26,6 +26,7 @@ class Cliente(db.Model, UserMixin):
     state = Column(String(length=30))
     city = Column(String(length=30))
     password_hash = Column(String(length=256))
+    phone_number = Column(String(length=15))
 
     login_attempts = Column(Integer, default=0, nullable=False)
     block_duration = Column(DateTime, default=datetime.now())
